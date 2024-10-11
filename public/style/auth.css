@@ -1,0 +1,33 @@
+.authentication-section {
+  display: flex;
+  height: 100vh;
+}
+/* It's point div container after the authentication-section */
+.authentication-section > div {
+  width: 100%;
+}
+.authentication-section .authentication-image {
+  background: url("../image/association.png") center center;
+  background-size: cover;
+  object-fit: cover;
+  height: 100%;
+}
+.authentication-section .authentication-form {
+  align-self: center;
+}
+.authentication-section .authentication-form .logo {
+  background: url("../image/logo_mps.png") center center;
+  width: 100%;
+  height: 100px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.authentication-section .authentication-form .checkbox-auth {
+  font-size: 14px;
+}
+
+@media screen and (max-width: 768px) {
+  .authentication-section .authentication-image {
+    display: none;
+  }
+}
