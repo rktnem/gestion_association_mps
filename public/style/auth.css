@@ -1,3 +1,5 @@
+@import url("bootstrap-5-3-3.css");
+
 .authentication-section {
   display: flex;
   height: 100vh;
@@ -24,6 +26,13 @@
 }
 .authentication-section .authentication-form .checkbox-auth {
   font-size: 14px;
+}
+.authentication-section .authentication-form a.second {
+  background-color: var(--bs-purple);
+  color: white;
+}
+.authentication-section .authentication-form a.second:hover {
+  background-color: var(--bs-indigo);
 }
 
 @media screen and (max-width: 768px) {

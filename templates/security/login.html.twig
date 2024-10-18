@@ -6,7 +6,7 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-    <section class="container py-5 authentication-section">
+    <section class="py-5 authentication-section">
       <div class="authentication-image bg-success"></div>
       <div class="authentication-form px-3">
         <div class="logo"></div>
@@ -37,7 +37,7 @@
               <button type="submit" class="px-5 py-2 btn btn-sm btn-success">
                 Log In
               </button>
-              <a href="#" class="px-3 py-2 btn btn-sm btn-primary"
+              <a href="{{ path('app_register') }}" class="px-3 py-2 btn btn-sm second"
                 >Create account</a
               >
             </div>
