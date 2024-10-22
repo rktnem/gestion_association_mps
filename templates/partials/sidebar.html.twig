@@ -1,0 +1,43 @@
+<nav class="sidebar expanded bg-success" id="sidebar">
+    <div class="sidebar-header d-flex justify-content-center align-items-center">
+        <div class="logo">
+            <img src={{ asset('image/assets/logo_mps.png') }} alt="">
+        </div>
+        <h4>
+            MPS
+        </h4>
+    </div>
+    <div class="sidebar-menu">
+        <div class="item-group">
+            <a href="" class="active" aria-label="Link to the dashboard">
+                {{ ux_icon('ic:baseline-speed') }}
+                <div>Dashboard</div>
+            </a>
+        </div>
+        <div class="item-group">
+            <h6 class="fonction">Gestion des données</h6>
+            <a href="" aria-label="Link to the regions">
+                {{ ux_icon('gis:search-country') }}
+                <div>Régions</div>
+                {{ ux_icon('weui:arrow-filled') }}
+            </a>
+            <a href="" aria-label="Link to the districts">
+                {{ ux_icon('ep:place') }}
+                <div>Districts</div>
+                {{ ux_icon('weui:arrow-filled') }}
+            </a>
+        </div>
+        <div class="item-group">
+            <h6 class="fonction">Autre fonctions</h6>
+            <a href="" aria-label="Link to the associations">
+                {{ ux_icon('clarity:organization-line') }}
+                <div>Associations</div>
+            </a>
+        </div>
+    </div>
+    <div class="sidebar-toggle" aria-label="Minimize" data-toogle="close">
+        <div id="minimize" class="d-flex justify-content-center align-items-center" data-arial="inverse">
+            {{ ux_icon('weui:arrow-filled') }}
+        </div>
+    </div>
+</nav>

@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
-    <link rel="stylesheet" href={{ asset("style/auth.css") }}>
+    <link rel="stylesheet" href={{ asset("style/app/auth.css") }}>
 {% endblock %}
 
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+<div class="container">
     <section class="py-5 authentication-section">
       <div class="authentication-image bg-success"></div>
       <div class="authentication-form px-3">
@@ -45,4 +46,5 @@
         </div>
       </div>
     </section>
+</div>
 {% endblock %}

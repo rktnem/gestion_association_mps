@@ -1,9 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Gestion Association{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href={{ asset('style/app/app.css') }}>
+    <link rel="stylesheet" href={{ asset('style/partials/sidebar.css') }}>
+{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <h1>Hello MPS !</h1>
-    </div>
+    <section class="dashboard-section">
+        {% include 'partials/sidebar.html.twig' %}
+    </section>
+    <script src={{ asset('js/sidebar.js') }}></script>
 {% endblock %}
