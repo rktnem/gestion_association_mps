@@ -1,0 +1,33 @@
+.dashboard-section {
+    padding-top: 15px;
+}
+
+/* The total association component */
+.dashboard-section .total-association {
+    min-width: 150px;
+}
+.dashboard-section .total-association .header {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+.dashboard-section .total-association .header div {
+    color: white;
+}
+.dashboard-section .total-association .number {
+    font-size: xx-large;
+    font-weight: bold;
+}
+.dashboard-section .total-association .search {
+    display: flex;
+    gap: 25px;
+}
+.dashboard-section .total-association .search select {
+    width: 50%;
+    padding: 7px 10px;
+    border-radius: 7px;
+}
+.dashboard-section .total-association .search select:focus {
+    outline: 2px solid #198754;
+    border: none;
+}

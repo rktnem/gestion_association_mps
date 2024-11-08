@@ -13,10 +13,10 @@
         {% endblock %}
     </head>
     <body>
+        {# entry point for the body of the view #}  
         {% block body %}{% endblock %}
 
-        <script src={{ asset("js/jquery.js") }}></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+        {# entry point for the script that was relative to the view #}
+        {% block script %}{% endblock %}
     </body>
 </html>

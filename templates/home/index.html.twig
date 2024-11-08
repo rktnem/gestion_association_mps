@@ -5,11 +5,18 @@
 {% block stylesheets %}
     <link rel="stylesheet" href={{ asset('style/app/app.css') }}>
     <link rel="stylesheet" href={{ asset('style/partials/sidebar.css') }}>
+    
+    {# This is the stylesheet for all child who
+        herited this template #}
+    {% block child_stylesheets %}{% endblock %}
 {% endblock %}
 
 {% block body %}
-    <section class="dashboard-section">
+    <section class="app-section">
         {% include 'partials/sidebar.html.twig' %}
+        <div class="container-section">
+            {% block container %}{% endblock %}
+        </div>
     </section>
     <script src={{ asset('js/sidebar.js') }}></script>
 {% endblock %}

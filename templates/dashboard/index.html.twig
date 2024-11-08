@@ -1,0 +1,11 @@
+{% extends 'home/index.html.twig' %}
+
+{% block child_stylesheets %}
+    <link rel="stylesheet" href={{ asset("style/app/dashboard.css") }}>
+{% endblock %}
+
+{% block container %}
+    <div class="container dashboard-section">
+        {{ include("dashboard/parts/total_association.html.twig") }}
+    </div>
+{% endblock %}

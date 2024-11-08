@@ -1,3 +1,8 @@
-.dashboard-section {
+.app-section {
     display: flex;
+}
+
+.app-section .container-section {
+    width: 100%;
+    min-height: 100vh;
 }
