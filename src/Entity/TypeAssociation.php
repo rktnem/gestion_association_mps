@@ -21,7 +21,7 @@ class TypeAssociation
     /**
      * @var Collection<int, Association>
      */
-    #[ORM\OneToMany(targetEntity: Association::class, mappedBy: 'type_assocation_id')]
+    #[ORM\OneToMany(targetEntity: Association::class, mappedBy: 'type_association')]
     private Collection $associations;
 
     public function __construct()
@@ -58,7 +58,7 @@ class TypeAssociation
     {
         if (!$this->associations->contains($association)) {
             $this->associations->add($association);
-            $association->setTypeAssocationId($this);
+            $association->setTypeAssociation($this);
         }
 
         return $this;
@@ -68,8 +68,8 @@ class TypeAssociation
     {
         if ($this->associations->removeElement($association)) {
             // set the owning side to null (unless already changed)
-            if ($association->getTypeAssocationId() === $this) {
-                $association->setTypeAssocationId(null);
+            if ($association->getTypeAssociation() === $this) {
+                $association->setTypeAssociation(null);
             }
         }
 

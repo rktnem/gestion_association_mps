@@ -15,13 +15,13 @@ class Region
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 150, nullable: true)]
+    #[ORM\Column(length: 150)]
     private ?string $nom = null;
 
     /**
      * @var Collection<int, District>
      */
-    #[ORM\OneToMany(targetEntity: District::class, mappedBy: 'regionId')]
+    #[ORM\OneToMany(targetEntity: District::class, mappedBy: 'region')]
     private Collection $districts;
 
     public function __construct()
@@ -39,7 +39,7 @@ class Region
         return $this->nom;
     }
 
-    public function setNom(?string $nom): static
+    public function setNom(string $nom): static
     {
         $this->nom = $nom;
 
@@ -58,7 +58,7 @@ class Region
     {
         if (!$this->districts->contains($district)) {
             $this->districts->add($district);
-            $district->setRegionId($this);
+            $district->setRegion($this);
         }
 
         return $this;
@@ -68,8 +68,8 @@ class Region
     {
         if ($this->districts->removeElement($district)) {
             // set the owning side to null (unless already changed)
-            if ($district->getRegionId() === $this) {
-                $district->setRegionId(null);
+            if ($district->getRegion() === $this) {
+                $district->setRegion(null);
             }
         }
 

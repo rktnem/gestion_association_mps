@@ -15,17 +15,17 @@ class District
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 150, nullable: true)]
+    #[ORM\Column(length: 150)]
     private ?string $nom = null;
 
     #[ORM\ManyToOne(inversedBy: 'districts')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Region $regionId = null;
+    private ?Region $region = null;
 
     /**
      * @var Collection<int, Commune>
      */
-    #[ORM\OneToMany(targetEntity: Commune::class, mappedBy: 'district_id')]
+    #[ORM\OneToMany(targetEntity: Commune::class, mappedBy: 'district')]
     private Collection $communes;
 
     public function __construct()
@@ -43,21 +43,21 @@ class District
         return $this->nom;
     }
 
-    public function setNom(?string $nom): static
+    public function setNom(string $nom): static
     {
         $this->nom = $nom;
 
         return $this;
     }
 
-    public function getRegionId(): ?Region
+    public function getRegion(): ?Region
     {
-        return $this->regionId;
+        return $this->region;
     }
 
-    public function setRegionId(?Region $regionId): static
+    public function setRegion(?Region $region): static
     {
-        $this->regionId = $regionId;
+        $this->region = $region;
 
         return $this;
     }
@@ -74,7 +74,7 @@ class District
     {
         if (!$this->communes->contains($commune)) {
             $this->communes->add($commune);
-            $commune->setDistrictId($this);
+            $commune->setDistrict($this);
         }
 
         return $this;
@@ -84,8 +84,8 @@ class District
     {
         if ($this->communes->removeElement($commune)) {
             // set the owning side to null (unless already changed)
-            if ($commune->getDistrictId() === $this) {
-                $commune->setDistrictId(null);
+            if ($commune->getDistrict() === $this) {
+                $commune->setDistrict(null);
             }
         }
 

@@ -15,17 +15,16 @@ class Commune
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 150, nullable: true)]
+    #[ORM\Column(length: 150)]
     private ?string $nom = null;
 
     #[ORM\ManyToOne(inversedBy: 'communes')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?District $district_id = null;
+    private ?District $district = null;
 
     /**
      * @var Collection<int, Association>
      */
-    #[ORM\OneToMany(targetEntity: Association::class, mappedBy: 'commune_id', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Association::class, mappedBy: 'commune')]
     private Collection $associations;
 
     public function __construct()
@@ -43,21 +42,21 @@ class Commune
         return $this->nom;
     }
 
-    public function setNom(?string $nom): static
+    public function setNom(string $nom): static
     {
         $this->nom = $nom;
 
         return $this;
     }
 
-    public function getDistrictId(): ?District
+    public function getDistrict(): ?District
     {
-        return $this->district_id;
+        return $this->district;
     }
 
-    public function setDistrictId(?District $district_id): static
+    public function setDistrict(?District $district): static
     {
-        $this->district_id = $district_id;
+        $this->district = $district;
 
         return $this;
     }
@@ -74,7 +73,7 @@ class Commune
     {
         if (!$this->associations->contains($association)) {
             $this->associations->add($association);
-            $association->setCommuneId($this);
+            $association->setCommune($this);
         }
 
         return $this;
@@ -84,8 +83,8 @@ class Commune
     {
         if ($this->associations->removeElement($association)) {
             // set the owning side to null (unless already changed)
-            if ($association->getCommuneId() === $this) {
-                $association->setCommuneId(null);
+            if ($association->getCommune() === $this) {
+                $association->setCommune(null);
             }
         }
 

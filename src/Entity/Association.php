@@ -23,16 +23,16 @@ class Association
     #[ORM\Column(length: 255)]
     private ?string $activite = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $besoin = null;
 
     #[ORM\ManyToOne(inversedBy: 'associations')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Commune $commune_id = null;
+    private ?Commune $commune = null;
 
     #[ORM\ManyToOne(inversedBy: 'associations')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?TypeAssociation $type_assocation_id = null;
+    private ?TypeAssociation $type_association = null;
 
     public function getId(): ?int
     {
@@ -80,33 +80,33 @@ class Association
         return $this->besoin;
     }
 
-    public function setBesoin(?string $besoin): static
+    public function setBesoin(string $besoin): static
     {
         $this->besoin = $besoin;
 
         return $this;
     }
 
-    public function getCommuneId(): ?Commune
+    public function getCommune(): ?Commune
     {
-        return $this->commune_id;
+        return $this->commune;
     }
 
-    public function setCommuneId(?Commune $commune_id): static
+    public function setCommune(?Commune $commune): static
     {
-        $this->commune_id = $commune_id;
+        $this->commune = $commune;
 
         return $this;
     }
 
-    public function getTypeAssocationId(): ?TypeAssociation
+    public function getTypeAssociation(): ?TypeAssociation
     {
-        return $this->type_assocation_id;
+        return $this->type_association;
     }
 
-    public function setTypeAssocationId(?TypeAssociation $type_assocation_id): static
+    public function setTypeAssociation(?TypeAssociation $type_association): static
     {
-        $this->type_assocation_id = $type_assocation_id;
+        $this->type_association = $type_association;
 
         return $this;
     }
