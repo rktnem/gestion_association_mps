@@ -16,6 +16,42 @@ class AssociationRepository extends ServiceEntityRepository
         parent::__construct($registry, Association::class);
     }
 
+    public function findTotalCountOfAssociation() {
+
+        return $this->createQueryBuilder('a')
+                ->select("COUNT(a.id) as total")
+                ->getQuery()
+                ->getSingleResult()
+        ;
+    }
+    
+    public function findTotalCountInRegion(int $regionId) {
+
+        return $this->createQueryBuilder('a')
+                    ->select('COUNT(a.id) as total')
+                    ->join('a.commune', 'c')
+                    ->join('c.district', 'd')
+                    ->join('d.region', 'r')
+                    ->where('r.id = :regionId')
+                    ->setParameter('regionId', $regionId)
+                    ->getQuery()
+                    ->getResult()
+        ;
+    }
+
+    public function findTotalCountInDistrict(int $districtId) {
+
+        return $this->createQueryBuilder('a')
+                ->select('COUNT(a.id) as total')
+                ->join('a.commune', 'c')
+                ->join('c.district', 'd')
+                ->where('d.id = :districtId')
+                ->setParameter('districtId', $districtId)
+                ->getQuery()
+                ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Association[] Returns an array of Association objects
 //     */

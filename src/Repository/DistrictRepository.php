@@ -16,6 +16,16 @@ class DistrictRepository extends ServiceEntityRepository
         parent::__construct($registry, District::class);
     }
 
+    public function findDistrictWithRegionId(int $regionId) {
+
+        return $this->createQueryBuilder('d')
+                ->where('d.region = :regionId')
+                ->setParameter('regionId', $regionId)
+                ->getQuery()
+                ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return District[] Returns an array of District objects
 //     */

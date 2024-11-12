@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\DistrictRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\DistrictRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: DistrictRepository::class)]
 class District
@@ -13,9 +14,11 @@ class District
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['district.select'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 150)]
+    #[Groups(['district.select'])]
     private ?string $nom = null;
 
     #[ORM\ManyToOne(inversedBy: 'districts')]

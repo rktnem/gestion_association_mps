@@ -13,6 +13,12 @@
 }
 .dashboard-section .total-association .header div {
     color: white;
+    max-width: 250px;
+    width: auto;
+    height: auto;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .dashboard-section .total-association .number {
     font-size: xx-large;
