@@ -1,11 +1,17 @@
 {% extends 'home/index.html.twig' %}
 
+{% block javascripts %}
+    {# <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script> #}
+    <script src={{ asset("./js/chart.umd.js") }}></script>
+{% endblock %}
+
 {% block child_stylesheets %}
     <link rel="stylesheet" href={{ asset("style/app/dashboard.css") }}>
 {% endblock %}
 
 {% block container %}
-    <div class="container dashboard-section">
+    <div class="container dashboard-section py-4">
         {{ include("dashboard/parts/total_association.html.twig") }}
+        {{ include("dashboard/parts/total_commune_association.html.twig") }}
     </div>
 {% endblock %}

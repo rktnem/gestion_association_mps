@@ -52,6 +52,18 @@ class AssociationRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findTotalCountInCommune() {
+        return $this->createQueryBuilder('a')
+                ->select('c.nom as name, COUNT(a.id) as total')
+                ->join('a.commune', 'c')
+                ->groupBy('c.nom')
+                ->orderBy('total', 'DESC')
+                ->setMaxResults(15)
+                ->getQuery()
+                ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Association[] Returns an array of Association objects
 //     */

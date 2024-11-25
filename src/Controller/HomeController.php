@@ -18,11 +18,13 @@ class HomeController extends AbstractController
         }
 
         $totalAssociation = $repository->findTotalCountOfAssociation();
+        $totalAssociationInCommune = $repository->findTotalCountInCommune();
         $regions = $regionRepo->findAll();
 
         return $this->render('dashboard/index.html.twig', [
             'totalAssociation' => $totalAssociation,
             'regions' => $regions,
+            'totalAssociationInCommune' => $totalAssociationInCommune
         ]);
     }
 

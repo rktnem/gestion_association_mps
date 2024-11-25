@@ -1,0 +1,50 @@
+<div class="total-commune-association chart-component shadow p-4">
+    <div class="header">
+        <h3>Commune</h3>
+        <input type="text" name="communeName" id="communeName" class="form-control">
+    </div>
+    <div class="total-commune-chart">
+        <div class="chart">
+            <canvas id="chartOftotalAssociationInCommune" ></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    const chartTotal = document.getElementById("chartOftotalAssociationInCommune")
+    const totalAssociationInCommune = {{ totalAssociationInCommune|json_encode|raw }}
+    let totalForEachCommune = []
+    let nameCommune = []
+
+    for(commune of totalAssociationInCommune) {
+        totalForEachCommune.push(commune.total)
+        nameCommune.push(commune.name)
+    }
+
+	new Chart(chartTotal, {
+        type: 'bar',
+        data: {
+            labels: nameCommune,
+            datasets: [{
+                label: 'Densite des associations',
+                barThickness: 25,
+                data: totalForEachCommune,
+                borderWidth: 1,
+                backgroundColor: '#198754',
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            onResize: (chart, size) => {
+                size.height = 300
+                chart.update()
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+        }
+    });
+</script>
