@@ -64,6 +64,21 @@ class AssociationRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getNeededOfAssociation(int $regionId = 7) {
+        return $this->createQueryBuilder("a")
+                ->join("a.commune", "c")
+                ->join("c.district", "d")
+                ->join("d.region", "r")
+                ->where("r.id = :regionId")
+                ->setParameter("regionId", $regionId)
+                ->join("a.besoin", "b")
+                ->select("b.nom_besoin as besoin, COUNT(b.id) as total")
+                ->groupBy('b.nom_besoin')
+                ->getQuery()
+                ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Association[] Returns an array of Association objects
 //     */

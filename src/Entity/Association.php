@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AssociationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -23,9 +25,6 @@ class Association
     #[ORM\Column(length: 255)]
     private ?string $activite = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $besoin = null;
-
     #[ORM\ManyToOne(inversedBy: 'associations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Commune $commune = null;
@@ -33,6 +32,17 @@ class Association
     #[ORM\ManyToOne(inversedBy: 'associations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?TypeAssociation $type_association = null;
+
+    /**
+     * @var Collection<int, Besoin>
+     */
+    #[ORM\ManyToMany(targetEntity: Besoin::class)]
+    private Collection $besoin;
+
+    public function __construct()
+    {
+        $this->besoin = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,18 +85,6 @@ class Association
         return $this;
     }
 
-    public function getBesoin(): ?string
-    {
-        return $this->besoin;
-    }
-
-    public function setBesoin(string $besoin): static
-    {
-        $this->besoin = $besoin;
-
-        return $this;
-    }
-
     public function getCommune(): ?Commune
     {
         return $this->commune;
@@ -107,6 +105,30 @@ class Association
     public function setTypeAssociation(?TypeAssociation $type_association): static
     {
         $this->type_association = $type_association;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Besoin>
+     */
+    public function getBesoin(): Collection
+    {
+        return $this->besoin;
+    }
+
+    public function addBesoin(Besoin $besoin): static
+    {
+        if (!$this->besoin->contains($besoin)) {
+            $this->besoin->add($besoin);
+        }
+
+        return $this;
+    }
+
+    public function removeBesoin(Besoin $besoin): static
+    {
+        $this->besoin->removeElement($besoin);
 
         return $this;
     }

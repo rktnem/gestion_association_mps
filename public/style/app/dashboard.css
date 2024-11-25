@@ -1,7 +1,16 @@
 .dashboard-section {
     display: grid;
     grid-gap: 15px;
-    grid-template-columns: 40% minmax(calc(60% - 15px), 60%);
+    grid-template-columns: 45% minmax(calc(55% - 15px), 60%);
+}
+.dashboard-section .header {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+.dashboard-section select {
+    padding: 7px 10px;
+    border-radius: 7px;
 }
 @media screen and (max-width: 1024px) {
     .dashboard-section {
@@ -11,9 +20,17 @@
     }
 }
 
-/* Generics styles for chart component in the dashboard */
-.dashboard-section .chart-component {
+/* Generics styles for dashboard component in the dashboard */
+.dashboard-section .dashboard-component {
+    padding: 16px;
     border-radius: 17px;
+}
+.dashboard-section .chart-component {
+    padding-top: 15px;
+    width: 100%;
+}
+.dashboard-section .chart-component .chart {
+    width: calc(100% - 15px);
 }
 
 /* The total association component */
@@ -24,11 +41,6 @@
     .dashboard-section .total-association {
         min-width: 100%;
     }
-}
-.dashboard-section .total-association .header {
-    display: flex;
-    align-items: center;
-    gap: 35px;
 }
 .dashboard-section .total-association .header div {
     color: white;
@@ -56,24 +68,9 @@
 }
 .dashboard-section .total-association .search select {
     width: 50%;
-    padding: 7px 10px;
-    border-radius: 7px;
 }
 
-/* The total association for each commune component */
-.dashboard-section .total-commune-association .header {
-    display: flex;
-    gap: 20px;
-}
-.dashboard-section .total-commune-association {
-    width: 100%;
-}
-.dashboard-section .total-commune-association .total-commune-chart {
-    width: 100%;
-    margin-top: 15px;
-}
-.dashboard-section .total-commune-association .total-commune-chart .chart {
-    width: 100%;
-    height: 200px;
-
+/* The chart of needed per region */
+.dashboard-section .densite-besoin {
+    grid-column: 2 / 3;
 }

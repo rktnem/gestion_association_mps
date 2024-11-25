@@ -16,6 +16,14 @@ class RegionRepository extends ServiceEntityRepository
         parent::__construct($registry, Region::class);
     }
 
+    public function findAll(): array {
+        return $this->createQueryBuilder('r')
+                ->orderBy('r.nom', 'ASC')
+                ->getQuery()
+                ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Region[] Returns an array of Region objects
 //     */
