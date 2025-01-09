@@ -1,0 +1,123 @@
+<div class="normalize-association dashboard-component shadow px-4 py-3">
+    <div class="row">
+        <h3>Association avec</h3>
+        <div class="col-sm-12 col-md-6 col-lg-4 py-4 d-flex flex-column align-items-center normalize-item ">
+            <h6 class="title">NIF/STAT</h6>
+            <canvas id="chartWithNif" width="150" height="150"></canvas>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4 py-4 d-flex flex-column align-items-center normalize-item ">
+            <h6 class="title">Présidente</h6>
+            <canvas id="chartWithPresident" width="150" height="150"></canvas>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4 py-4 d-flex flex-column align-items-center normalize-item ">
+            <h6 class="title">N° Recepissé</h6>
+            <canvas id="chartWithReceipt" width="150" height="150"></canvas>
+        </div>
+    </div>
+</div>
+
+{# Function to put text in center of a chart #}
+<script>
+    function putTextInChart(id, number, name) {
+        Chart.register({
+            id: name,
+            beforeDraw(chart) {
+                if (chart.canvas.id != id) return;
+
+                const { width } = chart;
+                const { height } = chart;
+                const ctx = chart.ctx;
+                const text = `${number}%`; // Texte à afficher.
+                const fontSize = (height / 125).toFixed(2); // Taille du texte ajustée à la hauteur.
+                ctx.save();
+                ctx.font = `${fontSize}em sans-serif`;
+                ctx.textBaseline = 'middle';
+                ctx.textAlign = 'center';
+                ctx.fillStyle = '#000'; // Couleur du texte.
+                ctx.fillText(text, width / 2, (height / 1.85)); // Centrer le texte.
+                ctx.restore();
+            }
+        });
+    }
+</script>
+
+{# Graphic chart for the NIF/STAT #}
+<script>
+    const chartWithNif = document.getElementById('chartWithNif');
+
+    putTextInChart('chartWithNif', 78, 'textOfNif')
+
+    new Chart(chartWithNif, {
+        type: 'doughnut',
+        data: {
+                datasets: [{
+                data: [78, 22],
+                backgroundColor: [
+                '#198754',
+                'rgb(255, 255, 255)'
+                ],
+            }]
+        },
+        options: {
+            cutout: '65%',
+            responsive: false,
+            maintainAspectRatio: false 
+        },
+        plugin: ['textOfNif']
+    });
+
+</script>
+
+{# Graphic chart for association who have president #}
+<script>
+    const chartWithPresident = document.getElementById('chartWithPresident');
+
+    putTextInChart('chartWithPresident', 50, 'textOfPresident')
+
+    new Chart(chartWithPresident, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [50, 50],
+                backgroundColor: [
+                '#198754',
+                'rgb(255, 255, 255)'
+                ],
+            }]
+        },
+        options: {
+            cutout: '65%',
+            responsive: false,
+            maintainAspectRatio: false 
+        },
+        plugin: ['textOfPresident']
+    });
+
+</script>
+
+{# Graphic chart for the NIF/STAT #}
+<script>
+    const chartWithReceipt = document.getElementById('chartWithReceipt');
+
+    putTextInChart('chartWithReceipt', 27, 'textOfReceipt')
+
+    const myChart = new Chart(chartWithReceipt, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: [27, 73],
+                backgroundColor: [
+                '#198754',
+                'rgb(255, 255, 255)'
+                ],
+            }]
+        },
+        options: {
+            cutout: '65%',
+            responsive: false,
+            maintainAspectRatio: false 
+        },
+        plugin: ['textOfReceipt']
+    });
+
+</script>

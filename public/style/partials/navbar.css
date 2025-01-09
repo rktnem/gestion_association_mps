@@ -1,0 +1,18 @@
+nav {
+    display: flex;
+    justify-content: end;
+}
+nav .report-button {
+    width: 225px;
+    padding: 12px 0;
+    background-color: #1269eb;
+    transition: .15s ease-out;
+    cursor: pointer;
+}
+nav .report-button:hover {
+    background-color: #0e4ba8;
+}
+nav .report-button > svg {
+    width: 25px;
+    height: 25px;
+}

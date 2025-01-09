@@ -70,7 +70,21 @@
     width: 50%;
 }
 
+/* The chart that show the commune who have the most of association */
+.dashboard-section .total-commune-association {
+    grid-column: 2 / 3;
+}
+
 /* The chart of needed per region */
 .dashboard-section .densite-besoin {
     grid-column: 2 / 3;
+}
+
+/* The percentage for association normalized */
+.dashboard-section .normalize-association .normalize-item {
+    border-radius: 7px;
+    transition: .5s ease;
+}
+.dashboard-section .normalize-association .normalize-item:hover {
+    background-color: rgb(215, 215, 215);
 }

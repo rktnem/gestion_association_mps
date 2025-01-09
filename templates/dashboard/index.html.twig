@@ -10,8 +10,9 @@
 {% endblock %}
 
 {% block container %}
-    <div class="container dashboard-section py-4">
+    <div class="container dashboard-section pb-4">
         {{ include("dashboard/parts/total_association.html.twig") }}
+        {{ include("dashboard/parts/normalize_association.html.twig") }}
         {{ include("dashboard/parts/total_commune_association.html.twig") }}
         {{ include("dashboard/parts/densite_besoin.html.twig") }}
     </div>
