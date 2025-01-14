@@ -79,6 +79,24 @@ class AssociationRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getPercentageOfNormalizeAssociation() {
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT
+                (SELECT COUNT(nom_president) FROM association WHERE nom_president <> :empty LIMIT 1) AS nom_president,
+                (SELECT COUNT(nif_stat) FROM association WHERE nif_stat = :bool LIMIT 1) AS nif_stat,
+                (SELECT COUNT(numero_recepisse) FROM association WHERE numero_recepisse <> :empty LIMIT 1) AS numero_recepisse
+        ';
+
+        $resultSet = $conn->executeQuery($sql, [
+            'empty' => '',
+            'bool' => true
+        ]);
+
+        return $resultSet->fetchAssociative();
+    }
+
 //    /**
 //     * @return Association[] Returns an array of Association objects
 //     */

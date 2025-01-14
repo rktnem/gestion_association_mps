@@ -75,7 +75,7 @@
     overflow: hidden;
 }
 .sidebar .sidebar-menu .item-group a,
-.sidebar .sidebar-menu .item-group .toggle-item label {
+.sidebar .sidebar-menu .item-group .toggle-content label {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -110,29 +110,32 @@
     transition: width .3s ease-in-out, opacity .3s ease-in-out;
 }
 
+.sidebar .sidebar-menu .item-group .toggle-item {
+    background-color:#16a663;
+}
 /* For item group that was toggled */
-.sidebar .sidebar-menu .item-group > .toggle-item label + input[type="checkbox"] {
+.sidebar .sidebar-menu .item-group > .toggle-content label + input[type="checkbox"] {
     display: none;
 }
-.sidebar .sidebar-menu .item-group > .toggle-item label + input[type="checkbox"]:checked + .toggle-content {
+.sidebar .sidebar-menu .item-group > .toggle-content label + input[type="checkbox"]:checked + .toggle-item {
     max-height: 200px;
 }
 /* For submenu in toggle item */
-.sidebar .sidebar-menu .item-group > .toggle-item label + input[type="checkbox"] + .toggle-content {
+.sidebar .sidebar-menu .item-group > .toggle-content label + input[type="checkbox"] + .toggle-item {
     padding: 0 15px;
     max-height: 0;
     overflow: hidden;
     transition: all .75s ease-in-out;
 }
-.sidebar .sidebar-menu .item-group .toggle-item > .toggle-content > a {
+.sidebar .sidebar-menu .item-group .toggle-content > .toggle-item > a {
     color: rgba(255, 255, 255, 0.7);
 }
-.sidebar .sidebar-menu .item-group .toggle-item > .toggle-content > a.active {
+.sidebar .sidebar-menu .item-group .toggle-content > .toggle-item > a.active {
     color: white;
     background-color: #0b5f38;
     border-radius: 5px;
 }
-.sidebar .sidebar-menu .item-group .toggle-item > .toggle-content > a svg {
+.sidebar .sidebar-menu .item-group .toggle-content > .toggle-item > a svg {
     width: 17px;
 }
 

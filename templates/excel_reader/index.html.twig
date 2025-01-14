@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ExcelReaderController!{% endblock %}
+
+{% block body %}
+
+{% for type, message in app.flashes %}
+    <div class="alert alert-{{ type }}">
+        {{ message | join('. ') }}
+    </div>
+{% endfor %}
+
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code>E:/Fichier et Etude/Project/Gestion Association MPS/src/Controller/ExcelReaderController.php</code></li>
+        <li>Your template at <code>E:/Fichier et Etude/Project/Gestion Association MPS/templates/excel_reader/index.html.twig</code></li>
+    </ul>
+    <form action={{ path("excel.submit") }} method="post" enctype="multipart/form-data">
+        <input type="file" name="excel" id="excel">
+        <button type="submit">Import</button>
+    </form>
+</div>
+{% endblock %}

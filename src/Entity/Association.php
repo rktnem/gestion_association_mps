@@ -39,6 +39,15 @@ class Association
     #[ORM\ManyToMany(targetEntity: Besoin::class)]
     private Collection $besoin;
 
+    #[ORM\Column(length: 255)]
+    private ?string $nom_president = null;
+
+    #[ORM\Column]
+    private ?bool $nif_stat = null;
+
+    #[ORM\Column(length: 150)]
+    private ?string $numero_recepisse = null;
+
     public function __construct()
     {
         $this->besoin = new ArrayCollection();
@@ -129,6 +138,42 @@ class Association
     public function removeBesoin(Besoin $besoin): static
     {
         $this->besoin->removeElement($besoin);
+
+        return $this;
+    }
+
+    public function getNomPresident(): ?string
+    {
+        return $this->nom_president;
+    }
+
+    public function setNomPresident(string $nom_president): static
+    {
+        $this->nom_president = $nom_president;
+
+        return $this;
+    }
+
+    public function isNifStat(): ?bool
+    {
+        return $this->nif_stat;
+    }
+
+    public function setNifStat(bool $nif_stat): static
+    {
+        $this->nif_stat = $nif_stat;
+
+        return $this;
+    }
+
+    public function getNumeroRecepisse(): ?string
+    {
+        return $this->numero_recepisse;
+    }
+
+    public function setNumeroRecepisse(string $numero_recepisse): static
+    {
+        $this->numero_recepisse = $numero_recepisse;
 
         return $this;
     }

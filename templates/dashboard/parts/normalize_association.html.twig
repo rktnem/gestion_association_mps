@@ -16,6 +16,15 @@
     </div>
 </div>
 
+{# Save all value into variables in the percentage of normalize association variable in Javascript #}
+<script>
+    let percentageArray = {{ percentageNormalizeArray|json_encode|raw }}
+
+    let nifStat = percentageArray.percentageWithNifStat
+    let president = percentageArray.percentageWithPresident
+    let numeroRecepisse = percentageArray.percentageWithNumeroRecepisse
+</script>
+
 {# Function to put text in center of a chart #}
 <script>
     function putTextInChart(id, number, name) {
@@ -45,13 +54,13 @@
 <script>
     const chartWithNif = document.getElementById('chartWithNif');
 
-    putTextInChart('chartWithNif', 78, 'textOfNif')
+    putTextInChart('chartWithNif', nifStat, 'textOfNif')
 
     new Chart(chartWithNif, {
         type: 'doughnut',
         data: {
                 datasets: [{
-                data: [78, 22],
+                data: [nifStat, (100 - nifStat)],
                 backgroundColor: [
                 '#198754',
                 'rgb(255, 255, 255)'
@@ -72,13 +81,13 @@
 <script>
     const chartWithPresident = document.getElementById('chartWithPresident');
 
-    putTextInChart('chartWithPresident', 50, 'textOfPresident')
+    putTextInChart('chartWithPresident', president, 'textOfPresident')
 
     new Chart(chartWithPresident, {
         type: 'doughnut',
         data: {
             datasets: [{
-                data: [50, 50],
+                data: [president, (100 - president)],
                 backgroundColor: [
                 '#198754',
                 'rgb(255, 255, 255)'
@@ -95,17 +104,17 @@
 
 </script>
 
-{# Graphic chart for the NIF/STAT #}
+{# Graphic chart for the "numéro recepissé" #}
 <script>
     const chartWithReceipt = document.getElementById('chartWithReceipt');
 
-    putTextInChart('chartWithReceipt', 27, 'textOfReceipt')
+    putTextInChart('chartWithReceipt', numeroRecepisse, 'textOfReceipt')
 
     const myChart = new Chart(chartWithReceipt, {
         type: 'doughnut',
         data: {
             datasets: [{
-                data: [27, 73],
+                data: [numeroRecepisse, (100 - numeroRecepisse)],
                 backgroundColor: [
                 '#198754',
                 'rgb(255, 255, 255)'
