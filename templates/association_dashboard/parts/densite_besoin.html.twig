@@ -1,4 +1,10 @@
 <div class="densite-besoin shadow dashboard-component">
+    <div class="loading" data-access="loaderOfNeeded">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
     <div class="header">
         <h3>Besoin</h3>
         <select name="regionInNeed" id="regionInNeed">
@@ -16,18 +22,18 @@
 </div>
 
 {# Charge the background color asset to alter the color for each "besoin" #}
-<script src={{ asset("js/color.js") }}></script>
 <script>
     const chartOfNeeds = document.getElementById("chartOfNeeds")
     const regionInNeed = document.getElementById("regionInNeed")
     let neededChart
     let config = {}
+    let loaderOfNeeded = document.querySelectorAll(".loading")
+
+    console.log(loaderOfNeeded[1])
 
     function showNeeded(needs) {
         let name = []
         let total = []
-        let bgColor = []
-        let indexColor = 0
 
         if(neededChart) {
             neededChart.destroy()
@@ -36,9 +42,6 @@
         for(need of needs) {
             name.push(need.besoin)
             total.push(need.total)
-            bgColor.push(color[indexColor])
-
-            indexColor++
         }
 
         const data = {
@@ -46,7 +49,7 @@
             datasets: [{
                 label: 'Besoin',
                 data: total,
-                backgroundColor: bgColor,
+                backgroundColor: setColor(needs, color),
             }]
         };
 
@@ -75,6 +78,9 @@
     // Charge data when a region was selected
     regionInNeed.onchange = (event) => {
         let regionId = event.target.value
+
+        loaderOfNeeded.style.display = "flex"
+
         fetch(`/api/besoin/${regionId}`)
         .then(res => {
             return res.json()
@@ -83,6 +89,8 @@
             config = showNeeded(needs)
 
             neededChart = new Chart(chartOfNeeds, config)
+
+            loaderOfNeeded.style.display = "none"
         })
     }
 

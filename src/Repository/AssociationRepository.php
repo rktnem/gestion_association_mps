@@ -26,7 +26,6 @@ class AssociationRepository extends ServiceEntityRepository
     }
     
     public function findTotalCountInRegion(int $regionId) {
-
         return $this->createQueryBuilder('a')
                     ->select('COUNT(a.id) as total')
                     ->join('a.commune', 'c')
@@ -39,8 +38,17 @@ class AssociationRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findTotalCountInDistrict(int $districtId) {
+    public function getAssociationDensity() {
+        return $this->createQueryBuilder('a')
+                    ->select('a.nom as name, a.membre as membre')
+                    ->orderBy('a.membre', 'DESC')
+                    ->setMaxResults(19)
+                    ->getQuery()
+                    ->getResult()
+        ;
+    }
 
+    public function findTotalCountInDistrict(int $districtId) {
         return $this->createQueryBuilder('a')
                 ->select('COUNT(a.id) as total')
                 ->join('a.commune', 'c')
@@ -87,6 +95,7 @@ class AssociationRepository extends ServiceEntityRepository
                 (SELECT COUNT(nom_president) FROM association WHERE nom_president <> :empty LIMIT 1) AS nom_president,
                 (SELECT COUNT(nif_stat) FROM association WHERE nif_stat = :bool LIMIT 1) AS nif_stat,
                 (SELECT COUNT(numero_recepisse) FROM association WHERE numero_recepisse <> :empty LIMIT 1) AS numero_recepisse
+            FROM association
         ';
 
         $resultSet = $conn->executeQuery($sql, [

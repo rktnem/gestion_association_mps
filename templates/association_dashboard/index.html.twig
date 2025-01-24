@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion Association{% endblock %}
+
+{% block javascripts %}
+    <script src={{ asset("./js/library/chart.umd.js") }}></script>
+    <script src={{ asset("js/util/color.js") }}></script>
+    <script src={{ asset("js/util/helper.js") }}></script>
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href={{ asset('style/app/app.css') }}>
+    <link rel="stylesheet" href={{ asset("style/app/association_dashboard.css") }}>
+    <link rel="stylesheet" href={{ asset("style/partials/loader.css") }}>
+{% endblock %}
+
+{% block body %}
+    <section class="app-section">
+            {% include 'partials/sidebar.html.twig' %}
+            <div class="container-section">
+                {% include 'partials/navbar.html.twig' %}
+                <div class="container dashboard-section pb-4">
+                    {{ include("association_dashboard/parts/total_association.html.twig") }}
+                    {{ include("association_dashboard/parts/normalize_association.html.twig") }}
+                    {{ include("association_dashboard/parts/association_density.html.twig") }}
+                    {{ include("association_dashboard/parts/total_commune_association.html.twig") }}
+                    {{ include("association_dashboard/parts/densite_besoin.html.twig") }}
+                </div>
+            </div>
+    </section>
+{% endblock %}

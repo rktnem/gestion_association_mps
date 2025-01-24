@@ -1,4 +1,10 @@
 <div class="total-association dashboard-component shadow p-4">
+    <div class="loading" data-access="loadingOfTotalAssociation">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
     <div class="header mb-4">
         <h3>Total</h3>
         <div class="bg-success px-4 py-2 rounded d-flex justify-content-center gap-2" id="localisation">
@@ -28,10 +34,13 @@
     const districtName = document.getElementById("districtName")
     const localisation = document.getElementById("localisation")
     const numberOfAssociation = document.getElementById("numberOfAssociation")
+    let loadingOfTotalAssociation = document.querySelectorAll(".loading")[0]
 
     // Generic function to get and put total association
     // either in region or in district
     function putTotalAssociation(url, htmlElement) {
+        loadingOfTotalAssociation.style.display = "flex"
+
         fetch(url)
         .then(res => {
             return res.json()
@@ -43,6 +52,7 @@
             else {
                 htmlElement.innerHTML = `${res[0].total} associations`
             }
+            loadingOfTotalAssociation.style.display = "none"
         })
     }
 
@@ -52,7 +62,6 @@
         let urlToSelectDistrict = `/api/district/${regionId}`
         let urlToHaveTotalInRegion = `/api/total/region/${regionId}`
         let districtOption = "<option value='none'>District</option>"
-
 
         if(regionId === "none") {
             // Trunk the "district" select tag  
@@ -72,6 +81,7 @@
             // Get the total of association in one region
             putTotalAssociation(urlToHaveTotalInRegion, numberOfAssociation)
 
+            loadingOfTotalAssociation.style.display = "flex"
             // Set the relatives districts to selected region
             fetch(urlToSelectDistrict)
             .then(res => {
@@ -86,6 +96,8 @@
                 }
 
                 districtSelect.innerHTML = districtOption
+
+                loadingOfTotalAssociation.style.display = "none"
             })
         }
     }

@@ -1,3 +1,7 @@
+{# Load stylesheet #}
+<link rel="stylesheet" href={{ asset('style/partials/sidebar.css') }}>
+
+{# Body of the sidebar menu #}
 <aside class="sidebar expanded bg-success" id="sidebar">
     <div class="sidebar-header d-flex justify-content-center align-items-center">
         <div class="logo">
@@ -65,3 +69,6 @@
         </div>
     </div>
 </aside>
+
+{# Load the javascript for interaction #}
+<script src={{ asset("js/app/sidebar.js") }}></script>

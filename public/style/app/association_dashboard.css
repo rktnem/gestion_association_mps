@@ -22,6 +22,7 @@
 
 /* Generics styles for dashboard component in the dashboard */
 .dashboard-section .dashboard-component {
+    position: relative;
     padding: 16px;
     border-radius: 17px;
 }
@@ -70,6 +71,20 @@
     width: 50%;
 }
 
+/* The percentage for association normalized */
+.dashboard-section .normalize-association .normalize-item {
+    border-radius: 7px;
+    transition: .5s ease;
+}
+.dashboard-section .normalize-association .normalize-item:hover {
+    background-color: rgb(215, 215, 215);
+}
+
+/* Histogram showing the associationn density */
+.dashboard-section .association-density {
+    grid-column: 1 / 3;
+}
+
 /* The chart that show the commune who have the most of association */
 .dashboard-section .total-commune-association {
     grid-column: 2 / 3;
@@ -78,13 +93,4 @@
 /* The chart of needed per region */
 .dashboard-section .densite-besoin {
     grid-column: 2 / 3;
-}
-
-/* The percentage for association normalized */
-.dashboard-section .normalize-association .normalize-item {
-    border-radius: 7px;
-    transition: .5s ease;
-}
-.dashboard-section .normalize-association .normalize-item:hover {
-    background-color: rgb(215, 215, 215);
 }
