@@ -12,40 +12,6 @@
 <script>
     const chartForHistogramOfAssociation = document.getElementById("chartForHistogramOfAssociation")
     const associations = {{ associations|json_encode|raw }}
-    let label = []
-    let total = []
     
-
-    for(let i = 0; i < associations.length; i++) {
-        label.push(associations[i].name)
-        total.push(associations[i].membre)
-        console.log(associations[i])
-    }
-
-    new Chart(chartForHistogramOfAssociation, {
-        type: 'bar',
-        data: {
-            labels: label,
-            datasets: [{
-                label: 'My First Dataset',
-                data: total,
-                backgroundColor: setColor(associations, color)
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            onResize: (chart, size) => {
-                size.height = 300,
-                chart.update()
-            },
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        },
-    })
-
-    chartForHistogramOfAssociation.style.height = "250px"
+    associationDensity(chartForHistogramOfAssociation, associations)
 </script>
