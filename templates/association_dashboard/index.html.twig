@@ -10,9 +10,11 @@
     <script src={{ asset("js/app/association_dashboard/normalize_association.js") }}></script>
     <script src={{ asset("js/app/association_dashboard/association_density.js") }}></script>
     <script src={{ asset("js/app/association_dashboard/total_commune_association.js") }}></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 {% endblock %}
 
 {% block stylesheets %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href={{ asset('style/app/app.css') }}>
     <link rel="stylesheet" href={{ asset("style/app/association_dashboard.css") }}>
     <link rel="stylesheet" href={{ asset("style/partials/loader.css") }}>
@@ -27,9 +29,11 @@
                     {{ include("association_dashboard/parts/total_association.html.twig") }}
                     {{ include("association_dashboard/parts/normalize_association.html.twig") }}
                     {{ include("association_dashboard/parts/association_density.html.twig") }}
+                    {{ include("association_dashboard/parts/map.html.twig") }}
                     {{ include("association_dashboard/parts/total_commune_association.html.twig") }}
                     {{ include("association_dashboard/parts/densite_besoin.html.twig") }}
                 </div>
+                {# {{ include("association_dashboard/parts/map.html.twig") }} #}
             </div>
     </section>
 {% endblock %}

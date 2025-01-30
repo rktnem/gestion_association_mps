@@ -39,6 +39,8 @@
         "symfony/translation": "7.0.*",
         "symfony/twig-bundle": "7.0.*",
         "symfony/ux-icons": "^2.20",
+        "symfony/ux-leaflet-map": "^2.22",
+        "symfony/ux-map": "^2.22",
         "symfony/ux-turbo": "^2.20",
         "symfony/validator": "7.0.*",
         "symfony/web-link": "7.0.*",

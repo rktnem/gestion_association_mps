@@ -2,6 +2,7 @@
     display: grid;
     grid-gap: 15px;
     grid-template-columns: 45% minmax(calc(55% - 15px), 60%);
+    grid-template-rows: repeat(4, minmax(250px, 1fr));
 }
 .dashboard-section .header {
     display: flex;
@@ -78,6 +79,16 @@
 }
 .dashboard-section .normalize-association .normalize-item:hover {
     background-color: rgb(215, 215, 215);
+}
+
+/* Map */
+.dashboard-section .map-component {
+    grid-column: 1 / 2;
+    grid-row: 3 / 5;
+}
+.dashboard-section .map-component > div {
+    width: 100%;
+    height: 500px;
 }
 
 /* Histogram showing the associationn density */

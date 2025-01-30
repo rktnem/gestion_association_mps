@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Helper\Helper;
+use App\Controller\MapController;
 use App\Repository\BesoinRepository;
 use App\Repository\RegionRepository;
+use App\Repository\DistrictRepository;
 use App\Repository\AssociationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,8 +17,9 @@ class AssociationDashboardController extends AbstractController
 {
     #[Route('/', name: 'home')]
     public function index(AssociationRepository $associationRepository, RegionRepository $regionRepository, 
-                            BesoinRepository $besoinRepository, Request $request): Response {
+        BesoinRepository $besoinRepository, DistrictRepository $districtRepository, Request $request): Response {
         $helper = new Helper();
+        $mapController = new MapController();
 
         if($this->denyAccessUnlessGranted('IS_AUTHENTICATED')) {
             return $this->redirectToRoute('app_login');
@@ -28,6 +31,7 @@ class AssociationDashboardController extends AbstractController
         $besoins = $associationRepository->getNeededOfAssociation();
         $normalizeArray = $associationRepository->getPercentageOfNormalizeAssociation();
         $associations = $associationRepository->getAssociationDensity();
+        $mapData = $mapController->showMap($districtRepository);
 
         // Traiter la variable normalizeArray
         $percentageWithPresident = $helper->toPercentage($normalizeArray["nom_president"], $totalAssociation["total"]);
@@ -46,6 +50,7 @@ class AssociationDashboardController extends AbstractController
             'regions' => $regions,
             'besoins' => $besoins,
             "percentageNormalizeArray" => $percentageNormalizeArray,
+            "markersData" => $mapData
         ]);
     }
 }

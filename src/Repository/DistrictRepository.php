@@ -26,6 +26,16 @@ class DistrictRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findAllWithAssociations()
+    {
+        return $this->createQueryBuilder('d')
+        ->leftJoin('d.communes', 'c')
+        ->leftJoin('c.associations', 'a')
+        ->addSelect('c', 'a')
+        ->getQuery()
+        ->getResult();
+    }
+
 //    /**
 //     * @return District[] Returns an array of District objects
 //     */
