@@ -21,9 +21,9 @@ class AssociationDashboardController extends AbstractController
         $helper = new Helper();
         $mapController = new MapController();
 
-        if($this->denyAccessUnlessGranted('IS_AUTHENTICATED')) {
-            return $this->redirectToRoute('app_login');
-        }
+        // if($this->denyAccessUnlessGranted('IS_AUTHENTICATED')) {
+        //     return $this->redirectToRoute('app_login');
+        // }
 
         $totalAssociation = $associationRepository->findTotalCountOfAssociation();
         $totalAssociationInCommune = $associationRepository->findTotalCountInCommune();
