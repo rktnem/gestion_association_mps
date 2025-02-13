@@ -31,7 +31,7 @@ class AssociationDashboardController extends AbstractController
         $besoins = $associationRepository->getNeededOfAssociation();
         $normalizeArray = $associationRepository->getPercentageOfNormalizeAssociation();
         $associations = $associationRepository->getAssociationDensity();
-        // $mapData = $mapController->showMap($districtRepository);
+        $mapData = $mapController->showMap($districtRepository);
 
         // Traiter la variable normalizeArray
         $percentageWithPresident = $helper->toPercentage($normalizeArray["nom_president"], $totalAssociation["total"]);
@@ -49,8 +49,8 @@ class AssociationDashboardController extends AbstractController
             'associations' => $associations,
             'regions' => $regions,
             'besoins' => $besoins,
-            "percentageNormalizeArray" => $percentageNormalizeArray
-            // "markersData" => $mapData
+            "percentageNormalizeArray" => $percentageNormalizeArray,
+            "markersData" => $mapData
         ]);
     }
 }
