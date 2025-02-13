@@ -1,41 +1,3 @@
-function showNeeded(needs) {
-    let name = []
-    let total = []
-
-    if(neededChart) {
-        neededChart.destroy()
-    }
-
-    for(need of needs) {
-        name.push(need.besoin)
-        total.push(need.total)
-    }
-
-    const data = {
-        labels: name,
-        datasets: [{
-            label: 'Besoin',
-            data: total,
-            backgroundColor: setColor(needs, color),
-        }]
-    };
-
-    const config = {
-        type: 'polarArea',
-        data: data,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            onResize: (chart, size) => {
-                size.height = 300
-                chart.update()
-            }
-        }
-    }
-
-    return config
-}
-
 function densiteBesoin(needs) {
     const chartOfNeeds = document.getElementById("chartOfNeeds")
     const regionInNeed = document.getElementById("regionInNeed")
@@ -66,8 +28,42 @@ function densiteBesoin(needs) {
             loaderOfNeeded.style.display = "none"
         })
     }
-}
 
-function test() {
-    console.log('Tratrany an')
+    function showNeeded(needs) {
+        let name = []
+        let total = []
+
+        if(neededChart) {
+            neededChart.destroy()
+        }
+
+        for(need of needs) {
+            name.push(need.besoin)
+            total.push(need.total)
+        }
+
+        const data = {
+            labels: name,
+            datasets: [{
+                label: 'Besoin',
+                data: total,
+                backgroundColor: setColor(needs, color),
+            }]
+        };
+
+        const config = {
+            type: 'polarArea',
+            data: data,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                onResize: (chart, size) => {
+                    size.height = 300
+                    chart.update()
+                }
+            }
+        }
+
+        return config
+    }
 }
