@@ -1,8 +1,6 @@
 // Generic function to get and put total association
 // either in region or in district
-function putTotalAssociation(loader, url, htmlElement) {
-    loader.style.display = "flex"
-
+function putTotalAssociation(url, htmlElement) {
     fetch(url)
     .then(res => {
         return res.json()
@@ -14,11 +12,10 @@ function putTotalAssociation(loader, url, htmlElement) {
         else {
             htmlElement.innerHTML = `${res[0].total} associations`
         }
-        loader.style.display = "none"
     })
 }
 
-async function totalAssociation() {
+function totalAssociation() {
     const regionSelect = document.getElementById("region")
     const regionName = document.getElementById("regionName")
     const districtSelect = document.getElementById("district")
@@ -27,48 +24,50 @@ async function totalAssociation() {
     let loadingOfTotalAssociation = document.querySelectorAll(".loading")[0]
 
     // When item on region select tag was selected
-    regionSelect.onchange = async (event) => {
+    regionSelect.onchange = (event) => {
         let regionId = event.target.value
         let urlToSelectDistrict = `/api/district/${regionId}`
         let urlToHaveTotalInRegion = `/api/total/region/${regionId}`
         let districtOption = "<option value='none'>District</option>"
 
-        if(regionId === "none") {
+        if (regionId === "none") {
             // Trunk the "district" select tag  
-            districtSelect.replaceChildren()    
-            
+            districtSelect.replaceChildren()
+
             districtSelect.innerHTML = districtOption
 
             regionName.innerHTML = "Region"
             districtName.innerHTML = "District"
-        }
+        } 
         else {
             // Add the region name to the regionName attribute
             regionName.innerHTML = event.target.selectedOptions[0].textContent
             // Initialize district name while region name change
             districtName.innerHTML = "District"
 
+            loadingOfTotalAssociation.style.display = "flex"
             // Get the total of association in one region
-            await putTotalAssociation(loadingOfTotalAssociation, urlToHaveTotalInRegion, numberOfAssociation)
+            putTotalAssociation(urlToHaveTotalInRegion, numberOfAssociation)
+            loadingOfTotalAssociation.style.display = "none"
 
             loadingOfTotalAssociation.style.display = "flex"
             // Set the relatives districts to selected region
             fetch(urlToSelectDistrict)
-            .then(res => {
-                return res.json()
-            })
-            .then(res => {
-                // Trunk the "district" select tag  
-                districtSelect.replaceChildren()
+                .then(res => {
+                    return res.json()
+                })
+                .then(res => {
+                    // Trunk the "district" select tag  
+                    districtSelect.replaceChildren()
 
-                for(response of res) {
-                    districtOption += `<option value=${response.id}>${response.nom}</option>`
-                }
+                    for (response of res) {
+                        districtOption += `<option value=${response.id}>${response.nom}</option>`
+                    }
 
-                districtSelect.innerHTML = districtOption
+                    districtSelect.innerHTML = districtOption
 
-                loadingOfTotalAssociation.style.display = "none"
-            })
+                    loadingOfTotalAssociation.style.display = "none"
+                })
         }
     }
 
@@ -85,8 +84,10 @@ async function totalAssociation() {
             // Add the district name to the districtName attribute
             districtName.innerHTML = event.target.selectedOptions[0].textContent
 
+            loadingOfTotalAssociation.style.display = "flex"
             // Get the total of association in one district
-            putTotalAssociation(loadingOfTotalAssociation, urlToHaveTotalInDistrict, numberOfAssociation)
+            putTotalAssociation(urlToHaveTotalInDistrict, numberOfAssociation)
+            loadingOfTotalAssociation.style.display = "none"
         }
     }
 }
