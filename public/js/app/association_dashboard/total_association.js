@@ -1,6 +1,10 @@
+const test = require('./densite_besoin');
+
 // Generic function to get and put total association
 // either in region or in district
-function putTotalAssociation(url, htmlElement) {
+function putTotalAssociation(loader, url, htmlElement) {
+    loader.style.display = "flex"
+
     fetch(url)
     .then(res => {
         return res.json()
@@ -8,9 +12,11 @@ function putTotalAssociation(url, htmlElement) {
     .then(res => {
         if (res[0].total === 0) {
             htmlElement.innerHTML = '0 association'
+            loader.style.display = "none"
         }
         else {
             htmlElement.innerHTML = `${res[0].total} associations`
+            loader.style.display = "none"
         }
     })
 }
@@ -30,6 +36,8 @@ function totalAssociation() {
         let urlToHaveTotalInRegion = `/api/total/region/${regionId}`
         let districtOption = "<option value='none'>District</option>"
 
+        test()
+
         if (regionId === "none") {
             // Trunk the "district" select tag  
             districtSelect.replaceChildren()
@@ -45,18 +53,15 @@ function totalAssociation() {
             // Initialize district name while region name change
             districtName.innerHTML = "District"
 
-            loadingOfTotalAssociation.style.display = "flex"
             // Get the total of association in one region
-            putTotalAssociation(urlToHaveTotalInRegion, numberOfAssociation)
-            loadingOfTotalAssociation.style.display = "none"
+            putTotalAssociation(loadingOfTotalAssociation, urlToHaveTotalInRegion, numberOfAssociation)
 
-            loadingOfTotalAssociation.style.display = "flex"
             // Set the relatives districts to selected region
             fetch(urlToSelectDistrict)
                 .then(res => {
                     return res.json()
                 })
-                .then(res => {
+                .then(res => {                
                     // Trunk the "district" select tag  
                     districtSelect.replaceChildren()
 
@@ -65,14 +70,12 @@ function totalAssociation() {
                     }
 
                     districtSelect.innerHTML = districtOption
-
-                    loadingOfTotalAssociation.style.display = "none"
                 })
         }
     }
 
     // When item on district select tag was selected
-    districtSelect.onchange = (event) => {
+    districtSelect.onchange = async (event) => {
         let districtId = event.target.value
         let urlToHaveTotalInDistrict = `/api/total/district/${districtId}`
 
@@ -84,10 +87,8 @@ function totalAssociation() {
             // Add the district name to the districtName attribute
             districtName.innerHTML = event.target.selectedOptions[0].textContent
 
-            loadingOfTotalAssociation.style.display = "flex"
             // Get the total of association in one district
-            putTotalAssociation(urlToHaveTotalInDistrict, numberOfAssociation)
-            loadingOfTotalAssociation.style.display = "none"
+            putTotalAssociation(loadingOfTotalAssociation, urlToHaveTotalInDistrict, numberOfAssociation)
         }
     }
 }

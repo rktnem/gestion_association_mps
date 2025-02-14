@@ -6,7 +6,7 @@ function densiteBesoin(needs) {
     let loaderOfNeeded = document.querySelectorAll(".loading")[1]
 
     // Charge data on loading
-    config = showNeeded(needs)
+    config = showNeeded(needs, neededChart)
 
     neededChart = new Chart(chartOfNeeds, config)
 
@@ -21,49 +21,53 @@ function densiteBesoin(needs) {
             return res.json()
         })
         .then(needs => {
-            config = showNeeded(needs)
+            config = showNeeded(needs, neededChart)
 
             neededChart = new Chart(chartOfNeeds, config)
 
             loaderOfNeeded.style.display = "none"
         })
     }
+}
 
-    function showNeeded(needs) {
-        let name = []
-        let total = []
+function showNeeded(needs, neededChart) {
+    let name = []
+    let total = []
 
-        if(neededChart) {
-            neededChart.destroy()
-        }
+    if(neededChart) {
+        neededChart.destroy()
+    }
 
-        for(need of needs) {
-            name.push(need.besoin)
-            total.push(need.total)
-        }
+    for(need of needs) {
+        name.push(need.besoin)
+        total.push(need.total)
+    }
 
-        const data = {
-            labels: name,
-            datasets: [{
-                label: 'Besoin',
-                data: total,
-                backgroundColor: setColor(needs, color),
-            }]
-        };
+    const data = {
+        labels: name,
+        datasets: [{
+            label: 'Besoin',
+            data: total,
+            backgroundColor: setColor(needs, color),
+        }]
+    };
 
-        const config = {
-            type: 'polarArea',
-            data: data,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                onResize: (chart, size) => {
-                    size.height = 300
-                    chart.update()
-                }
+    const config = {
+        type: 'polarArea',
+        data: data,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            onResize: (chart, size) => {
+                size.height = 300
+                chart.update()
             }
         }
-
-        return config
     }
+
+    return config
+}
+
+function test() {
+    console.log("Test");
 }
