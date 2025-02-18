@@ -48,6 +48,9 @@ class Association
     #[ORM\Column(length: 150)]
     private ?string $numero_recepisse = null;
 
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $contact = null;
+
     public function __construct()
     {
         $this->besoin = new ArrayCollection();
@@ -174,6 +177,18 @@ class Association
     public function setNumeroRecepisse(string $numero_recepisse): static
     {
         $this->numero_recepisse = $numero_recepisse;
+
+        return $this;
+    }
+
+    public function getContact(): ?string
+    {
+        return $this->contact;
+    }
+
+    public function setContact(?string $contact): static
+    {
+        $this->contact = $contact;
 
         return $this;
     }

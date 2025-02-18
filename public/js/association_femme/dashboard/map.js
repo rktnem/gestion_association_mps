@@ -1,8 +1,4 @@
-<div class="map-component dashboard-component shadow">
-    <div id="map" style="width: 100%;height: 100%;"></div>
-</div>
-
-<script>
+function showMap(markersData) {
     // Initialisation de la carte
     const map = L.map('map').setView([-18, 47], 6);
 
@@ -12,9 +8,11 @@
     }).addTo(map);
 
     // Ajout des marqueurs
-    const markersData = {{ markersData|json_encode|raw }};
     markersData.forEach(data => {
         const marker = L.marker([data.lat, data.lng]).addTo(map);
-        marker.bindPopup(data.popup); // Ajout du contenu dans le popup
+
+        marker.addEventListener('click', () => {
+            console.log(data.id)
+        })
     });
-</script>
+}

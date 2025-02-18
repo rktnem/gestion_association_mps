@@ -1,5 +1,3 @@
-const test = require('./densite_besoin');
-
 // Generic function to get and put total association
 // either in region or in district
 function putTotalAssociation(loader, url, htmlElement) {
@@ -35,8 +33,6 @@ function totalAssociation() {
         let urlToSelectDistrict = `/api/district/${regionId}`
         let urlToHaveTotalInRegion = `/api/total/region/${regionId}`
         let districtOption = "<option value='none'>District</option>"
-
-        test()
 
         if (regionId === "none") {
             // Trunk the "district" select tag  

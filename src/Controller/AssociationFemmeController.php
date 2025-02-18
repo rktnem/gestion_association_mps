@@ -8,12 +8,14 @@ use App\Repository\BesoinRepository;
 use App\Repository\RegionRepository;
 use App\Repository\DistrictRepository;
 use App\Repository\AssociationRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class AssociationDashboardController extends AbstractController
+#[Route('/association-femmes', name: 'association_femme.')]
+class AssociationFemmeController extends AbstractController
 {
     #[Route('/', name: 'home')]
     public function index(AssociationRepository $associationRepository, RegionRepository $regionRepository, 
@@ -43,7 +45,7 @@ class AssociationDashboardController extends AbstractController
             "percentageWithNifStat" => $percentageWithNifStat,
             "percentageWithNumeroRecepisse" => $percentageWithNumeroRecepisse];
 
-        return $this->render('association_dashboard/index.html.twig', [
+        return $this->render('association_femme/index.html.twig', [
             'totalAssociation' => $totalAssociation,
             'totalAssociationInCommune' => $totalAssociationInCommune,
             'associations' => $associations,
@@ -51,6 +53,24 @@ class AssociationDashboardController extends AbstractController
             'besoins' => $besoins,
             "percentageNormalizeArray" => $percentageNormalizeArray,
             "markersData" => $mapData
+        ]);
+    }
+
+    #[Route('/administration', name: 'show')]
+    public function show(Request $request, AssociationRepository $repository, 
+        PaginatorInterface $paginator): Response
+    {
+        $associations = $repository->findAll();
+
+        
+       /* $associationPaginate = $paginator->paginate(
+            $associations,
+            $request->query->getInt('page', 1),
+            10
+        ); */
+        
+        return $this->render('association_femme/admin/index.html.twig', [
+            'associations' => $associations,
         ]);
     }
 }

@@ -13,8 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {   
-    #[Route('/old', name: 'old.home')]
-    public function index(AssociationRepository $associationRepository, RegionRepository $regionRepository, BesoinRepository $besoinRepository, Request $request): Response {
-        return $this->render("home/index.html");
+    #[Route('/', name: 'app_home')]
+    public function index(): Response {
+        return $this->render("home/index.html.twig");
     }   
 }

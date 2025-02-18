@@ -24,8 +24,9 @@ function associationDensity(chartId, data) {
                 size.height = 300,
                 chart.update()
             },
+            indexAxis: 'y',
             scales: {
-                y: {
+                x: {
                     beginAtZero: true
                 }
             }

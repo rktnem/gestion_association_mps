@@ -31,7 +31,6 @@ class DistrictRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('d')
         ->leftJoin('d.communes', 'c')
         ->leftJoin('c.associations', 'a')
-        ->addSelect('c', 'a')
         ->getQuery()
         ->getResult();
     }
