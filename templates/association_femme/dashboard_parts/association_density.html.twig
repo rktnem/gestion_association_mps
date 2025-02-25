@@ -11,7 +11,7 @@
 
 <script>
     const chartForHistogramOfAssociation = document.getElementById("chartForHistogramOfAssociation")
-    const associations = {{ associations|json_encode|raw }}
+    const associations = {{ associationDensity|json_encode|raw }}
     
     associationDensity(chartForHistogramOfAssociation, associations)
 </script>

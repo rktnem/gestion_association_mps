@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title "Association des femmes - modification" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href={{ asset("style/app/association_femme/admin.css") }}>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>Modifier l'association</h2>
+
+        {{ form_start(form) }}
+            {{ form_row(form.nom) }}
+            {{ form_row(form.membre) }}
+            {{ form_row(form.nom_president) }}
+            {{ form_row(form.nif_stat) }}
+            {{ form_row(form.numero_recepisse) }}
+            {{ form_row(form.contact) }}
+            {{ form_row(form.commune) }}
+            {{ form_row(form.type_association) }}
+            <button type="submit">Modifier</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -4,8 +4,8 @@
 
 {% block stylesheets %}
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href={{ asset("style/app/app.css") }}>
     <link rel="stylesheet" href={{ asset("style/app/association_femme/dashboard.css") }}>
+    <link rel="stylesheet" href={{ asset("style/app/association_femme/admin.css") }}>
     <link rel="stylesheet" href={{ asset("style/partials/loader.css") }}>
 {% endblock %}
 
@@ -13,28 +13,27 @@
     <script src={{ asset("js/library/chart.umd.js") }}></script>
     <script src={{ asset("js/util/color.js") }}></script>
     <script src={{ asset("js/util/helper.js") }}></script>
-    <script src={{ asset("js/association_femme/dashboard/total_association.js") }}></script>
-    <script src={{ asset("js/association_femme/dashboard/normalize_association.js") }}></script>
-    <script src={{ asset("js/association_femme/dashboard/association_density.js") }}></script>
-    <script src={{ asset("js/association_femme/dashboard/map.js") }}></script>
-    <script src={{ asset("js/association_femme/dashboard/total_commune_association.js") }}></script>
-    <script src={{ asset("js/association_femme/dashboard/densite_besoin.js") }}></script>
+    <script src={{ asset("js/association_femme/total_association.js") }}></script>
+    <script src={{ asset("js/association_femme/normalize_association.js") }}></script>
+    <script src={{ asset("js/association_femme/association_density.js") }}></script>
+    <script src={{ asset("js/association_femme/map.js") }}></script>
+    {# <script src={{ asset("js/association_femme/total_commune_association.js") }}></script>
+    <script src={{ asset("js/association_femme/densite_besoin.js") }}></script> #}
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 {% endblock %}
 
 {% block body %}
-    <section class="app-section">
-            {% include 'partials/sidebar.html.twig' %}
-            <div class="container-section">
-                {% include 'partials/navbar.html.twig' %}
-                <div class="container dashboard-section pb-4">
-                    {{ include("association_femme/dashboard_parts/total_association.html.twig") }}
-                    {{ include("association_femme/dashboard_parts/normalize_association.html.twig") }}
-                    {{ include("association_femme/dashboard_parts/map.html.twig") }}
-                    {{ include("association_femme/dashboard_parts/association_density.html.twig") }}
-                    {# {{ include("association_femme/dashboard_parts/total_commune_association.html.twig") }}
-                    {{ include("association_femme/dashboard_parts/densite_besoin.html.twig") }} #}
-                </div>
-            </div>
-    </section>
+    {% include 'partials/navbar.html.twig' %}
+    {% include 'partials/flash.html.twig' %}
+    <div class="container dashboard-section pb-4">
+        {{ include("association_femme/dashboard_parts/total_association.html.twig") }}
+        {{ include("association_femme/dashboard_parts/normalize_association.html.twig") }}
+        {{ include("association_femme/dashboard_parts/association_list.html.twig") }}
+        {{ include("association_femme/dashboard_parts/map.html.twig") }}
+        {{ include("association_femme/dashboard_parts/association_density.html.twig") }}
+        {# Chargement des boîte modal #}
+        {{ include("association_femme/admin/insert_modal.html.twig") }}
+        {# {{ include("association_femme/dashboard_parts/total_commune_association.html.twig") }}
+        {{ include("association_femme/dashboard_parts/densite_besoin.html.twig") }} #}
+    </div>
 {% endblock %}

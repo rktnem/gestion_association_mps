@@ -1,49 +1,15 @@
-:root {
-  --primary: #0b5f38;
-}
-
-.input-group {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.input-group input {
-  flex: 1;
-  padding: 10px 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px 0 0 5px;
-  font-size: 1rem;
-}
-
-.input-group button {
-  padding: 10px 20px;
-  border: none;
-  background-color: var(--primary);
-  color: #fff;
-  font-size: 1rem;
-  font-weight: bold;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.input-group button:hover {
-  background-color: var(--primary);
-}
-
 table tr {
   vertical-align: middle;
 }
 table tr > td,
 table tr > th {
-  font-size: 13px;
+  font-size: 14px;
 }
 table tr > td:nth-child(3),
 table tr > td:nth-child(4),
 table tr > td:nth-child(5),
 table tr > td:nth-child(6) {
-  min-width: 150px;
+  min-width: 135px;
 }
 table tr > td:last-child {
   text-align: center;
@@ -53,7 +19,38 @@ table tr td svg {
   color: white;
 }
 
+/* Modification des modales */
+.modal .modal-content .modal-header,
+.modal .modal-content .modal-footer {
+  border: none;
+}
+.modal .modal-content .modal-header .modal-title svg {
+  width: 28px;
+}
+.modal .modal-content .modal-footer .btn:first-child {
+  background-color: var(--primary);
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  transition: 0.25s ease;
+}
+.modal .modal-content .modal-footer .btn:first-child:hover {
+  background-color: var(--primary-hover);
+}
+
 /* Modification du datatable */
+div.dt-container div.dt-length select {
+  width: 75px;
+}
+.dt-search input[type="search"] {
+  padding: 7px;
+  width: 225px !important;
+}
+.dt-search input[type="search"]:focus,
+div.dt-container div.dt-length select:focus {
+  border: none;
+  box-shadow: 0 0 0 0.2rem #4d9875;
+}
 table.dataTable thead > tr > th.dt-orderable-asc span.dt-column-order:before,
 table.dataTable thead > tr > th.dt-orderable-asc span.dt-column-order:after,
 table.dataTable thead > tr > th.dt-orderable-desc span.dt-column-order:before,

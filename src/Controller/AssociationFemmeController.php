@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Helper\Helper;
+use App\Entity\Association;
+use App\Form\AssociationType;
 use App\Controller\MapController;
 use App\Repository\BesoinRepository;
 use App\Repository\RegionRepository;
 use App\Repository\DistrictRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AssociationRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,23 +22,25 @@ class AssociationFemmeController extends AbstractController
 {
     #[Route('/', name: 'home')]
     public function index(AssociationRepository $associationRepository, RegionRepository $regionRepository, 
-        BesoinRepository $besoinRepository, DistrictRepository $districtRepository, Request $request): Response {
+        BesoinRepository $besoinRepository, DistrictRepository $districtRepository): Response {
         $helper = new Helper();
         $mapController = new MapController();
+        $association = new Association();
 
         if($this->denyAccessUnlessGranted('IS_AUTHENTICATED')) {
             return $this->redirectToRoute('app_login');
         }
 
         $totalAssociation = $associationRepository->findTotalCountOfAssociation();
-        $totalAssociationInCommune = $associationRepository->findTotalCountInCommune();
+        // $totalAssociationInCommune = $associationRepository->findTotalCountInCommune();
         $regions = $regionRepository->findAll();
-        $besoins = $associationRepository->getNeededOfAssociation();
+        // $besoins = $associationRepository->getNeededOfAssociation();
         $normalizeArray = $associationRepository->getPercentageOfNormalizeAssociation();
-        $associations = $associationRepository->getAssociationDensity();
+        $associations = $associationRepository->findAll();
+        $associationDensity = $associationRepository->getAssociationDensity();
         $mapData = $mapController->showMap($districtRepository);
 
-        // Traiter la variable normalizeArray
+        // Traiter la variable normalizeArray en pourcentage
         $percentageWithPresident = $helper->toPercentage($normalizeArray["nom_president"], $totalAssociation["total"]);
         $percentageWithNifStat = $helper->toPercentage($normalizeArray["nif_stat"], $totalAssociation["total"]);
         $percentageWithNumeroRecepisse = $helper->toPercentage($normalizeArray["numero_recepisse"], $totalAssociation["total"]);
@@ -45,14 +50,19 @@ class AssociationFemmeController extends AbstractController
             "percentageWithNifStat" => $percentageWithNifStat,
             "percentageWithNumeroRecepisse" => $percentageWithNumeroRecepisse];
 
+        // Création du formulaire pour la création d'association
+        $formAssociation = $this->createForm(AssociationType::class, $association);
+
         return $this->render('association_femme/index.html.twig', [
             'totalAssociation' => $totalAssociation,
-            'totalAssociationInCommune' => $totalAssociationInCommune,
-            'associations' => $associations,
+            // 'totalAssociationInCommune' => $totalAssociationInCommune,
+            'associationDensity' => $associationDensity,
             'regions' => $regions,
-            'besoins' => $besoins,
+            // 'besoins' => $besoins,
             "percentageNormalizeArray" => $percentageNormalizeArray,
-            "markersData" => $mapData
+            "markersData" => $mapData,
+            "associations" => $associations,
+            "form" => $formAssociation,
         ]);
     }
 
@@ -62,7 +72,6 @@ class AssociationFemmeController extends AbstractController
     {
         $associations = $repository->findAll();
 
-        
        /* $associationPaginate = $paginator->paginate(
             $associations,
             $request->query->getInt('page', 1),
@@ -72,5 +81,52 @@ class AssociationFemmeController extends AbstractController
         return $this->render('association_femme/admin/index.html.twig', [
             'associations' => $associations,
         ]);
+    }
+
+    #[Route('/create', name:'create')]
+    public function create(Request $request, EntityManagerInterface $em) {
+        $association = new Association();
+        $form = $this->createForm(AssociationType::class, $association);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em->persist($association);
+            $em->flush();
+            $this->addFlash(
+               'success',
+               "L'ajout de nouvelle association à été un succés."
+            );
+
+            return $this->redirectToRoute('association_femme.home');
+        }
+        
+        return $this->redirectToRoute('association_femme.home');
+    }
+
+    #[Route('/edit/{id}', name: 'edit')]
+    public function edit(Association $association, Request $request, EntityManagerInterface $em): Response {
+        $form = $this->createForm(AssociationType::class, $association);
+        
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($association);
+            $em->flush();   
+
+            return $this->redirectToRoute('association_femme.home');
+        }
+
+        return $this->render('association_femme/admin/edit.html.twig', [
+            'form' => $form
+        ]);
+    }
+
+    #[Route('/delete/{id}', name: 'delete')]
+    public function delete(Association $association, EntityManagerInterface $em): Response {
+        $em->remove($association);
+        $em->flush();
+        
+        return $this->redirectToRoute('association_femme.home');
     }
 }
