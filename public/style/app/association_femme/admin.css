@@ -19,6 +19,26 @@ table tr td svg {
   color: white;
 }
 
+.nif_stat {
+  background-color: rgb(226, 236, 244);
+}
+.nif_stat > div {
+  margin-bottom: 0 !important;
+}
+
+/* La section modification */
+.association-femme-edit button {
+  display: inline;
+  float: right;
+  background-color: var(--primary);
+  color: white;
+  transition: 0.25s ease;
+}
+.association-femme-edit button:hover {
+  background-color: var(--primary-hover);
+  color: white;
+}
+
 /* Modification des modales */
 .modal .modal-content .modal-header,
 .modal .modal-content .modal-footer {

@@ -81,44 +81,6 @@ class AssociationFemmeController extends AbstractController
         ]);
     }
 
-    #[Route('/administration', name: 'show')]
-    public function show(Request $request, AssociationRepository $repository, 
-        PaginatorInterface $paginator): Response
-    {
-        $associations = $repository->findAll();
-
-       /* $associationPaginate = $paginator->paginate(
-            $associations,
-            $request->query->getInt('page', 1),
-            10
-        ); */
-        
-        return $this->render('association_femme/admin/index.html.twig', [
-            'associations' => $associations,
-        ]);
-    }
-
-    #[Route('/create', name:'create')]
-    public function create(Request $request, EntityManagerInterface $em) {
-        $association = new Association();
-        $form = $this->createForm(AssociationType::class, $association);
-
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid()) {
-            $em->persist($association);
-            $em->flush();
-            $this->addFlash(
-               'success',
-               "L'ajout de nouvelle association à été un succés."
-            );
-
-            return $this->redirectToRoute('association_femme.home');
-        }
-        
-        return $this->redirectToRoute('association_femme.home');
-    }
-
     #[Route('/edit/{id}', name: 'edit')]
     public function edit(Association $association, Request $request, EntityManagerInterface $em): Response {
         $form = $this->createForm(AssociationType::class, $association);
@@ -128,7 +90,11 @@ class AssociationFemmeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($association);
             $em->flush();
-            
+            $this->addFlash(
+               'success',
+               "Modification de l'association effectué a été un succés."
+            );
+
             return $this->redirectToRoute('association_femme.home');
         }
 

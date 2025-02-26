@@ -25,8 +25,11 @@
                         {{ form_row(form.contact) }}
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 pe-0 ps-5">
+                        {{ form_row(form.district) }}
                         {{ form_row(form.commune) }}
-                        {{ form_row(form.nif_stat) }}
+                        <div class="nif_stat px-4 py-3 mb-3 rounded-2">
+                            {{ form_row(form.nif_stat) }}
+                        </div>
                         {{ form_row(form.numero_recepisse) }}
                         {{ form_row(form.type_association) }}
                     </div>

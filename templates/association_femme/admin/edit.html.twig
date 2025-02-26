@@ -7,19 +7,31 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <h2>Modifier l'association</h2>
+    {% include 'partials/navbar.html.twig' %}
+    <div class="container association-femme-edit px-5 pb-5">
+        <h2 class="mb-4">Modifier l'association</h2>
 
-        {{ form_start(form) }}
-            {{ form_row(form.nom) }}
-            {{ form_row(form.membre) }}
-            {{ form_row(form.nom_president) }}
-            {{ form_row(form.nif_stat) }}
-            {{ form_row(form.numero_recepisse) }}
-            {{ form_row(form.contact) }}
-            {{ form_row(form.commune) }}
-            {{ form_row(form.type_association) }}
-            <button type="submit">Modifier</button>
-        {{ form_end(form) }}
+        <div class="">
+            {{ form_start(form) }}
+                {{ form_row(form.nom) }}
+                {{ form_row(form.membre) }}
+                {{ form_row(form.nom_president) }}
+                {{ form_row(form.contact) }}
+                <div class="nif_stat px-4 py-3 mb-3 rounded-2">
+                    {{ form_row(form.nif_stat) }}
+                </div>
+                {{ form_row(form.numero_recepisse) }}
+                <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        {{ form_row(form.district) }}
+                    </div>
+                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                        {{ form_row(form.commune) }}
+                    </div>
+                </div>
+                {{ form_row(form.type_association) }}
+                <button type="submit" class="btn px-4">Modifier</button>
+            {{ form_end(form) }}
+        </div>
     </div>
 {% endblock %}
