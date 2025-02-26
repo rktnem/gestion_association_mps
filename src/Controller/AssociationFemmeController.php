@@ -22,7 +22,8 @@ class AssociationFemmeController extends AbstractController
 {
     #[Route('/', name: 'home')]
     public function index(AssociationRepository $associationRepository, RegionRepository $regionRepository, 
-        BesoinRepository $besoinRepository, DistrictRepository $districtRepository): Response {
+        BesoinRepository $besoinRepository, DistrictRepository $districtRepository,
+        Request $request, EntityManagerInterface $em): Response {
         $helper = new Helper();
         $mapController = new MapController();
         $association = new Association();
@@ -53,6 +54,20 @@ class AssociationFemmeController extends AbstractController
         // Création du formulaire pour la création d'association
         $formAssociation = $this->createForm(AssociationType::class, $association);
 
+        // Appel à l'action du création d'association
+        $formAssociation->handleRequest($request);
+        
+        if($formAssociation->isSubmitted() && $formAssociation->isValid()) {
+            $em->persist($association);
+            $em->flush();
+            $this->addFlash(
+                'success',
+                'L\'ajout de nouvelle association à été un succés.'
+            );
+
+            return $this->redirectToRoute("association_femme.home");
+        }
+        
         return $this->render('association_femme/index.html.twig', [
             'totalAssociation' => $totalAssociation,
             // 'totalAssociationInCommune' => $totalAssociationInCommune,
@@ -112,8 +127,8 @@ class AssociationFemmeController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($association);
-            $em->flush();   
-
+            $em->flush();
+            
             return $this->redirectToRoute('association_femme.home');
         }
 

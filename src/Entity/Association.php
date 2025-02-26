@@ -2,13 +2,11 @@
 
 namespace App\Entity;
 
+use App\Repository\AssociationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\AssociationRepository;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints\Regex;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ORM\Entity(repositoryClass: AssociationRepository::class)]
 class Association
@@ -19,11 +17,9 @@ class Association
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[NotBlank(message: "Cette champ n'accepte pas les espaces.")]
     private ?string $nom = null;
 
     #[ORM\Column(nullable: true)]
-    #[NotBlank(message: "Cette champ ne valide pas les espaces comme donnée.")]
     private ?int $membre = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -45,7 +41,6 @@ class Association
     private Collection $besoin;
 
     #[ORM\Column(length: 255)]
-    #[Regex('/^[A-Za-zéèàôçùï ]+$/', message: "Le nom ne doit pas comporter des nombres ou de caractère spéciaux non courant.")]
     private ?string $nom_president = null;
 
     #[ORM\Column]
