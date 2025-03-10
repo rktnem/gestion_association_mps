@@ -1,7 +1,15 @@
 <div class="association-list shadow dashboard-component px-3 py-4">
     <div class="header mb-3 px-2 py-1">
         <h3>Liste des associations</h3>
-        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#insert-modal">
+        <button type="button" class="btn create-association" data-bs-toggle="modal" data-bs-target="#insert-modal">
+            {% for type, message in app.flashes %}
+                
+                <h2>{{ message | join(".") }}</h2>
+                
+            {% endfor %}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30">
+                <path d="M15 3C14.168432 3 13.456063 3.5067238 13.154297 4.2285156L2.3007812 22.947266L2.3027344 22.951172C2.1137952 23.256561 2 23.614318 2 24C2 25.105 2.895 26 4 26C4.0469265 26 4.0906022 25.989504 4.1367188 25.986328L4.1445312 26L15 26L25.855469 26L25.863281 25.986328C25.909398 25.989504 25.953074 26 26 26C27.105 26 28 25.105 28 24C28 23.614318 27.886205 23.256561 27.697266 22.951172L27.699219 22.947266L16.845703 4.2285156C16.543937 3.5067238 15.831568 3 15 3 z M 13.787109 11.359375L16.212891 11.359375L16.011719 17.832031L13.988281 17.832031L13.787109 11.359375 z M 15.003906 19.810547C15.825906 19.810547 16.318359 20.252813 16.318359 21.007812C16.318359 21.748812 15.825906 22.189453 15.003906 22.189453C14.175906 22.189453 13.679688 21.748813 13.679688 21.007812C13.679688 20.252813 14.174906 19.810547 15.003906 19.810547 z" fill="#F74A44" />
+            </svg>
             <span>Nouvelle association</span>
         </button>
     </div>

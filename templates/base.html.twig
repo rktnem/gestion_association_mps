@@ -13,6 +13,11 @@
         <link rel="stylesheet" href={{ asset("style/library/bootstrap.min.css") }} crossorigin="anonymous">
         <link rel="stylesheet" href={{ asset("style/app/app.css") }}>
         <link href={{ asset("style/library/datatables.min.css") }} rel="stylesheet" crossorigin="anonymous">
+        {# Chargement des script JS local #}
+        <script src={{ asset("js/partials/sidebar.js") }}></script>
+        <script src={{ asset("js/library/jquery.min.js") }}></script>
+        <script src={{ asset("js/library/bootstrap.min.js") }} crossorigin="anonymous"></script>
+        <script src={{ asset("js/library/datatables.min.js") }} crossorigin="anonymous"></script>
 
         {% block stylesheets %}{% endblock %}
 
@@ -28,11 +33,5 @@
                 {% block body %}{% endblock %}
             </div>
         </section>
-
-        {# Chargement des script JS local #}
-        <script src={{ asset("js/partials/sidebar.js") }}></script>
-        <script src={{ asset("js/library/jquery.js") }}></script>
-        <script src={{ asset("js/library/bootstrap.min.js") }} crossorigin="anonymous"></script>
-        <script src={{ asset("js/library/datatables.min.js") }} crossorigin="anonymous"></script>
     </body>
 </html>

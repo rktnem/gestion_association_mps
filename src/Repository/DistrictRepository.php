@@ -29,10 +29,22 @@ class DistrictRepository extends ServiceEntityRepository
     public function findAllWithAssociations()
     {
         return $this->createQueryBuilder('d')
-        ->leftJoin('d.communes', 'c')
-        ->leftJoin('c.associations', 'a')
-        ->getQuery()
-        ->getResult();
+                ->leftJoin('d.communes', 'c')
+                ->leftJoin('c.associations', 'a')
+                ->getQuery()
+                ->getResult()
+        ;
+    }
+
+    public function findCommuneInDistrict(int $districtId) {
+        return $this->createQueryBuilder('d')
+                ->join('d.communes', 'c')
+                ->select('c.id', 'c.nom')
+                ->where('d.id = :districtId')
+                ->setParameter('districtId', $districtId)
+                ->getQuery()
+                ->getResult()
+        ;
     }
 
 //    /**

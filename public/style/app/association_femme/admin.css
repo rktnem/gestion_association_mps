@@ -19,11 +19,22 @@ table tr td svg {
   color: white;
 }
 
+/* Pour mettre en valeur certain input dans la creation et edition d'assocation */
 .nif_stat {
   background-color: rgb(226, 236, 244);
 }
 .nif_stat > div {
   margin-bottom: 0 !important;
+}
+
+.district {
+  padding: 12px 16px;
+}
+
+.commune > div {
+  padding: 12px 16px;
+  background-color: rgb(226, 236, 244);
+  border-radius: 6px;
 }
 
 /* La section modification */

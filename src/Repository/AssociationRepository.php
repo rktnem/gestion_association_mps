@@ -19,9 +19,18 @@ class AssociationRepository extends ServiceEntityRepository
     public function findTotalCountOfAssociation() {
 
         return $this->createQueryBuilder('a')
+                ->where("a.deletedAt IS NULL")
                 ->select("COUNT(a.id) as total")
                 ->getQuery()
                 ->getSingleResult()
+        ;
+    }
+
+    public function findAllNotDeleted() {
+        return $this->createQueryBuilder('a')
+                ->where("a.deletedAt IS NULL")
+                ->getQuery()
+                ->getResult()
         ;
     }
     

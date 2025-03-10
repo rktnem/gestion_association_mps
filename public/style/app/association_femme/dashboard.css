@@ -96,6 +96,16 @@
 .dashboard-section .association-list {
   grid-column: 1 / 3;
 }
+.dashboard-section .association-list > .header .create-association {
+  position: relative;
+}
+.dashboard-section .association-list > .header .create-association svg {
+  position: absolute;
+  top: -12.5px;
+  right: -12.5px;
+  background-color: white;
+  width: 25px;
+}
 
 /* Map */
 .dashboard-section .map-component {

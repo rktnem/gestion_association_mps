@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Helper\Helper;
+use DateTimeImmutable;
 use App\Entity\Association;
 use App\Form\AssociationType;
 use App\Controller\MapController;
@@ -37,7 +38,7 @@ class AssociationFemmeController extends AbstractController
         $regions = $regionRepository->findAll();
         // $besoins = $associationRepository->getNeededOfAssociation();
         $normalizeArray = $associationRepository->getPercentageOfNormalizeAssociation();
-        $associations = $associationRepository->findAll();
+        $associations = $associationRepository->findAllNotDeleted();
         $associationDensity = $associationRepository->getAssociationDensity();
         $mapData = $mapController->showMap($districtRepository);
 
@@ -67,6 +68,24 @@ class AssociationFemmeController extends AbstractController
 
             return $this->redirectToRoute("association_femme.home");
         }
+        else if ($formAssociation->isSubmitted() && !$formAssociation->isValid()) {
+            $this->addFlash(
+                'danger',
+                "L'ajout de nouvelle association fût un echec."
+            );
+
+            return $this->render('association_femme/index.html.twig', [
+                'totalAssociation' => $totalAssociation,
+                // 'totalAssociationInCommune' => $totalAssociationInCommune,
+                'associationDensity' => $associationDensity,
+                'regions' => $regions,
+                // 'besoins' => $besoins,
+                "percentageNormalizeArray" => $percentageNormalizeArray,
+                "markersData" => $mapData,
+                "associations" => $associations,
+                "form" => $formAssociation,
+            ]);
+        }
         
         return $this->render('association_femme/index.html.twig', [
             'totalAssociation' => $totalAssociation,
@@ -88,7 +107,6 @@ class AssociationFemmeController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($association);
             $em->flush();
             $this->addFlash(
                'success',
@@ -105,8 +123,13 @@ class AssociationFemmeController extends AbstractController
 
     #[Route('/delete/{id}', name: 'delete')]
     public function delete(Association $association, EntityManagerInterface $em): Response {
-        $em->remove($association);
+        $association->setDeletedAt(new DateTimeImmutable());
+        $em->persist($association);
         $em->flush();
+        $this->addFlash(
+            'danger',
+            "Une association vient d'être supprimé."
+        );
         
         return $this->redirectToRoute('association_femme.home');
     }

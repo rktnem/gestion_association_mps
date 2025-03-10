@@ -6,6 +6,9 @@
     <link rel="stylesheet" href={{ asset("style/app/association_femme/admin.css") }}>
 {% endblock %}
 
+{% block javascript %}
+{% endblock %}
+
 {% block body %}
     {% include 'partials/navbar.html.twig' %}
     <div class="container association-femme-edit px-5 pb-5">
@@ -22,10 +25,10 @@
                 </div>
                 {{ form_row(form.numero_recepisse) }}
                 <div class="row">
-                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="district col-sm-12 col-md-12 col-lg-6 col-xl-6">
                         {{ form_row(form.district) }}
                     </div>
-                    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                    <div class="commune col-sm-12 col-md-12 col-lg-6 col-xl-6">
                         {{ form_row(form.commune) }}
                     </div>
                 </div>
@@ -34,4 +37,18 @@
             {{ form_end(form) }}
         </div>
     </div>
+    
+    <script src={{ asset("js/util/helper.js") }}></script>
+    <script>
+
+        $(document).ready(() => {
+            const districtSelectEdit = $("#association_district")
+            const communeSelectEdit = $("#association_commune")
+
+            districtSelectEdit.change((event) => {
+                selectDistrict(communeSelectEdit, event.target.value)
+            })
+        })
+
+    </script>
 {% endblock %}

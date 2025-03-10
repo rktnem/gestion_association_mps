@@ -9,6 +9,7 @@ use App\Entity\Association;
 use Doctrine\ORM\QueryBuilder;
 use App\Entity\TypeAssociation;
 use App\Repository\CommuneRepository;
+use App\Repository\DistrictRepository;
 use Symfony\Component\Form\FormEvents;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
@@ -90,7 +91,10 @@ class AssociationType extends AbstractType
             ->add('district', EntityType::class, [
                 'class' => District::class,
                 'choice_label' => 'nom',
-                'mapped' => false
+                'mapped' => false,
+                'query_builder' => function (DistrictRepository $repository) {
+                    return $this->orderDistrictList($repository);
+                },
             ])
             ->add('commune', EntityType::class, [
                 'class' => Commune::class,
@@ -124,6 +128,14 @@ class AssociationType extends AbstractType
     ): QueryBuilder {
         return $repository->createQueryBuilder('c')
                 ->orderBy('c.nom', 'ASC')
+        ;
+    }
+
+    private function orderDistrictList(
+        DistrictRepository $repository
+    ): QueryBuilder {
+        return $repository->createQueryBuilder('d')
+                ->orderBy('d.nom', 'ASC')
         ;
     }
 }

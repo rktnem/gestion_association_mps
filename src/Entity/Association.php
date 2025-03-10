@@ -52,6 +52,9 @@ class Association
     #[ORM\Column(length: 20, nullable: true)]
     private ?string $contact = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $deletedAt = null;
+
     public function __construct()
     {
         $this->besoin = new ArrayCollection();
@@ -190,6 +193,18 @@ class Association
     public function setContact(?string $contact): static
     {
         $this->contact = $contact;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeImmutable
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeImmutable $deletedAt): static
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }
