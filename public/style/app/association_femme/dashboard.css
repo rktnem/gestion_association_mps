@@ -96,6 +96,12 @@
 .dashboard-section .association-list {
   grid-column: 1 / 3;
 }
+@media screen and (max-width: 1024px) {
+  .dashboard-section .association-list table {
+    display: block;
+    overflow-x: scroll;
+  }
+}
 .dashboard-section .association-list > .header .create-association {
   position: relative;
 }
@@ -106,11 +112,15 @@
   background-color: white;
   width: 25px;
 }
-
 /* Map */
 .dashboard-section .map-component {
   grid-column: 1 / 2;
   grid-row: 3 / 5;
+}
+@media screen and (max-width: 1024px) {
+  .dashboard-section .map-component {
+    height: 650px;
+  }
 }
 .dashboard-section .map-component > div {
   width: 100%;

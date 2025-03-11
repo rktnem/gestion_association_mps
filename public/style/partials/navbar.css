@@ -1,18 +1,42 @@
 nav {
-    display: flex;
-    justify-content: end;
+  display: flex;
+  justify-content: end;
 }
+
 nav .report-button {
-    width: 225px;
-    padding: 12px 0;
-    background-color: #1269eb;
-    transition: .15s ease-out;
-    cursor: pointer;
+  background-color: #1269eb;
+  transition: 0.15s ease-out;
+  cursor: pointer;
 }
 nav .report-button:hover {
-    background-color: #0e4ba8;
+  background-color: #0e4ba8;
 }
 nav .report-button > svg {
-    width: 25px;
-    height: 25px;
+  width: 20px;
+  height: 20px;
+}
+
+nav .user-count {
+  max-width: 300px;
+  background-color: rgb(232, 232, 232);
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+}
+nav .user-count:hover {
+  background-color: rgb(224, 224, 224);
+}
+nav .user-count svg {
+  width: 15px;
+}
+nav .user-count svg path {
+  fill: rgb(17, 21, 34);
+}
+nav .user-count span:nth-child(2) {
+  font-size: 14px;
+}
+nav .user-count span:last-child {
+  transform: rotate(90deg);
+}
+nav .user-count span:last-child svg {
+  width: 8px;
 }

@@ -22,12 +22,6 @@
   padding: 25px 0;
   width: 100%;
 }
-.sidebar .sidebar-header h4 {
-  width: 0;
-  opacity: 0;
-  transition: width 0.3s ease-in-out, padding 0.3s ease-in-out,
-    opacity 0.3s ease-in-out;
-}
 .sidebar .sidebar-header .logo img {
   width: 50px;
   transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
@@ -44,8 +38,7 @@
   padding-left: 15px;
 }
 .sidebar.expanded .sidebar-header .logo img {
-  width: 35px;
-  transform: rotateZ(-10deg);
+  width: 75px;
 }
 
 /* Sidebar menu */

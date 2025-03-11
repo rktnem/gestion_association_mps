@@ -70,7 +70,7 @@ class AssociationFemmeController extends AbstractController
         }
         else if ($formAssociation->isSubmitted() && !$formAssociation->isValid()) {
             $this->addFlash(
-                'danger',
+                'danger create-error',
                 "L'ajout de nouvelle association fût un echec."
             );
 

@@ -14,7 +14,6 @@
         <link rel="stylesheet" href={{ asset("style/app/app.css") }}>
         <link href={{ asset("style/library/datatables.min.css") }} rel="stylesheet" crossorigin="anonymous">
         {# Chargement des script JS local #}
-        <script src={{ asset("js/partials/sidebar.js") }}></script>
         <script src={{ asset("js/library/jquery.min.js") }}></script>
         <script src={{ asset("js/library/bootstrap.min.js") }} crossorigin="anonymous"></script>
         <script src={{ asset("js/library/datatables.min.js") }} crossorigin="anonymous"></script>
@@ -28,10 +27,15 @@
     <body>
         {# entry point for the body of the view #}  
         <section class="app-section">
-            {% include 'partials/sidebar.html.twig' %}
+            {% if app.current_route != "app_login" and app.current_route != "app_register" %}
+                {% include 'partials/sidebar.html.twig' %}
+            {% endif %}
             <div class="container-section">
                 {% block body %}{% endblock %}
             </div>
         </section>
+
+        {# Chargement du javascript du sidebar #}
+        <script src={{ asset("js/partials/sidebar.js") }}></script>
     </body>
 </html>

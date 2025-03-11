@@ -1,4 +1,4 @@
-{% for type, message in app.flashes %}
+{% for type, message in flashes %}
     <div class="alert alert-{{ type }} text-align-center m-2">
         {{ message | join(". ") }}
     </div>
