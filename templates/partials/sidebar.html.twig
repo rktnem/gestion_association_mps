@@ -10,7 +10,7 @@
     </div>
     <div class="sidebar-menu">
         <div class="item-group">
-            <a href={{ path("app_home") }} class="active" aria-label="Link to the dashboard">
+            <a href={{ path("app_home") }} class={{ app.current_route == "app_home" ? "active" : "" }} aria-label="Link to the dashboard">
                 {{ ux_icon('ant-design:dashboard-filled') }}
                 <div>Accueil</div>
             </a>
@@ -33,7 +33,7 @@
                 </label>
                 <input type="checkbox" id="women-association" checked>
                 <div class="toggle-item">
-                    <a href={{ path("association_femme.home") }} class="" aria-label="Link to the districts">
+                    <a href={{ path("association_femme.home") }} class={{ app.current_route == "association_femme.home" ? "active" : "" }} aria-label="Link to the districts">
                         {{ ux_icon('mdi:women') }}
                         <div>Associations des femmes</div>
                     </a>

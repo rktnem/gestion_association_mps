@@ -33,6 +33,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    public function findUserByMatricule(string $matricule): ?User {
+        return $this->createQueryBuilder('user')
+                ->where('user.matricule = :identifier')
+                ->setParameter('identifier', $matricule)
+                ->setMaxResults(1)
+                ->getQuery()
+                ->getOneOrNullResult()
+        ;
+    }
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

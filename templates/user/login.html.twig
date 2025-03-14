@@ -14,17 +14,16 @@
         <h3 class="header mb-4 text-success text-center">Se connecter</h3>
         <div>
           <form method="POST">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
             <div class="mb-3">
-              <label for="inputEmail" class="form-label">Email address</label>
-              <input
-                 type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus
-              />
+              <label for="matricule" class="form-label">Matricule</label>
+              <input type="text" value="{{ last_username }}" name="matricule" id="matricule" class="form-control" autocomplete="matricule" placeholder="Votre matricule..." required autofocus>
             </div>
             <div class="mb-3">
-              <label for="inputPassword" class="form-label">Password</label>
-              <input
-                type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required
-              />
+              <label for="password" class="form-label">Password</label>
+              <input type="password" name="password" id="password" class="form-control" placeholder="Votre mot de passe..." required>
             </div>
             <input type="hidden" name="_csrf_token"
                 value="{{ csrf_token('authenticate') }}"
@@ -38,9 +37,9 @@
               <button type="submit" class="px-5 py-2 btn btn-sm btn-success">
                 Log In
               </button>
-              <a href="#" class="px-3 py-2 btn btn-sm second"
-                >Create account</a
-              >
+              <a href={{ path('app_register') }} class="px-3 py-2 btn btn-sm second">
+                Create account
+              </a>
             </div>
           </form>
         </div>

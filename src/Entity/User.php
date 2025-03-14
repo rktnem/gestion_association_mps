@@ -2,19 +2,15 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
-use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\Regex;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_MATRICULE', fields: ['matricule'])]
+#[UniqueEntity(fields: ['matricule'], message: 'There is already an account with this matricule')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -23,10 +19,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
-    #[NotBlank()]
-    #[Email()]
-    #[Length(min: 10, max: 100)]
-    private ?string $email = null;
+    private ?string $matricule = null;
 
     /**
      * @var list<string> The user roles
@@ -40,40 +33,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 50)]
-    #[NotBlank()]
-    #[Length(min: 5, max: 50)]
-    #[Regex('/^[^0-9]+$/')]
+    #[ORM\Column(length: 150, nullable: true)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 150)]
-    #[NotBlank()]
-    #[Length(min: 2, max: 150)]
-    #[Regex('/^[^0-9]+$/')]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $firstname = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[ORM\Column(length: 60, nullable: true)]
+    private ?string $pseudonyme = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $updatedAt = null;
-
-    #[ORM\Column]
-    private bool $isVerified = false;
+    #[ORM\Column(length: 150)]
+    private ?string $email = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getEmail(): ?string
+    public function getMatricule(): ?string
     {
-        return $this->email;
+        return $this->matricule;
     }
 
-    public function setEmail(string $email): static
+    public function setMatricule(string $matricule): static
     {
-        $this->email = $email;
+        $this->matricule = $matricule;
 
         return $this;
     }
@@ -85,7 +69,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string) $this->matricule;
     }
 
     /**
@@ -140,7 +124,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(?string $name): static
     {
         $this->name = $name;
 
@@ -152,45 +136,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->firstname;
     }
 
-    public function setFirstname(string $firstname): static
+    public function setFirstname(?string $firstname): static
     {
         $this->firstname = $firstname;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getPseudonyme(): ?string
     {
-        return $this->createdAt;
+        return $this->pseudonyme;
     }
 
-    public function setCreatedAt(?\DateTimeImmutable $createdAt): static
+    public function setPseudonyme(?string $pseudonyme): static
     {
-        $this->createdAt = $createdAt;
+        $this->pseudonyme = $pseudonyme;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getEmail(): ?string
     {
-        return $this->updatedAt;
+        return $this->email;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+    public function setEmail(string $email): static
     {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function isVerified(): bool
-    {
-        return $this->isVerified;
-    }
-
-    public function setVerified(bool $isVerified): static
-    {
-        $this->isVerified = $isVerified;
+        $this->email = $email;
 
         return $this;
     }
