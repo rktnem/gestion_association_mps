@@ -47,14 +47,25 @@ class AssociationRepository extends ServiceEntityRepository
         ;
     }
 
-    public function getAssociationDensity() {
-        return $this->createQueryBuilder('a')
-                    ->select('a.nom as name, a.membre as membre')
-                    ->orderBy('a.membre', 'DESC')
-                    ->setMaxResults(19)
-                    ->getQuery()
-                    ->getResult()
+    public function getAssociationDensity(?int $regionId = null) {
+        $query = $this->createQueryBuilder('a')
+                    ->select('a.nom as name, a.membre as membre')         
         ;
+
+        if($regionId !== null) {
+            $query->leftJoin("a.commune", "c")
+                ->leftJoin("c.district", "d")
+                ->leftJoin("d.region", "r")
+                ->where("r.id = :regionId")
+                ->setParameter("regionId", $regionId)
+            ;
+        }
+
+        $query->orderBy('a.membre', 'DESC')
+            ->setMaxResults(19)
+        ;
+
+        return $query->getQuery()->getResult();
     }
 
     public function findTotalCountInDistrict(int $districtId) {
@@ -96,23 +107,26 @@ class AssociationRepository extends ServiceEntityRepository
         ;
     }
 
-    public function getPercentageOfNormalizeAssociation() {
-        $conn = $this->getEntityManager()->getConnection();
+    public function getPercentageOfNormalizeAssociation(?int $regionId = null) {
+        $query = $this->createQueryBuilder("a")
+            ->select([
+                "SUM(CASE WHEN a.nom_president <> '' THEN 1 ELSE 0 END) AS nom_president",
+                "SUM(CASE WHEN a.nif_stat = true THEN 1 ELSE 0 END) AS nif_stat",
+                "SUM(CASE WHEN a.numero_recepisse <> '' THEN 1ELSE 0  END) AS numero_recepisse"
+            ])
+            ->join("a.commune", "c")
+            ->join("c.district", "d")
+            ->join("d.region", "r")
+            ->where("a.deletedAt IS NULL")
+        ;
 
-        $sql = '
-            SELECT
-                (SELECT COUNT(nom_president) FROM association WHERE nom_president <> :empty LIMIT 1) AS nom_president,
-                (SELECT COUNT(nif_stat) FROM association WHERE nif_stat = :bool LIMIT 1) AS nif_stat,
-                (SELECT COUNT(numero_recepisse) FROM association WHERE numero_recepisse <> :empty LIMIT 1) AS numero_recepisse
-            FROM association
-        ';
+        if($regionId !== null) {
+            $query->andWhere("r.id = :regionId")
+                ->setParameter("regionId", $regionId)
+            ;
+        }
 
-        $resultSet = $conn->executeQuery($sql, [
-            'empty' => '',
-            'bool' => true
-        ]);
-
-        return $resultSet->fetchAssociative();
+        return $query->getQuery()->getSingleResult();
     }
 
 //    /**

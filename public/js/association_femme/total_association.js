@@ -1,6 +1,6 @@
 // Generic function to get and put total association
 // either in region or in district
-function putTotalAssociation(loader, url, htmlElement) {
+function putTotalAssociation(loader, url, htmlElement, call) {
   loader.style.display = "flex";
 
   fetch(url)
@@ -14,6 +14,39 @@ function putTotalAssociation(loader, url, htmlElement) {
       } else {
         htmlElement.innerHTML = `${res[0].total} associations`;
         loader.style.display = "none";
+      }
+      // Si l'appelle est une apelle API
+      if (call) {
+        // Detruire toutes les entités de canvas pour
+        // normalisation
+        window.canvasElement[0].destroy();
+        window.canvasElement[1].destroy();
+        window.canvasElement[2].destroy();
+
+        // Reconstruction des canvas
+        window.normalizeAssociation(
+          "textOfNif",
+          chartWithNif,
+          res[1].percentageWithNifStat,
+          1
+        );
+        window.normalizeAssociation(
+          "textOfPresident",
+          chartWithPresident,
+          res[1].percentageWithPresident,
+          2
+        );
+        window.normalizeAssociation(
+          "textOfRecepisse",
+          chartWithReceipt,
+          res[1].percentageWithNumeroRecepisse,
+          3
+        );
+
+        // Detruire l'ancien canvas densityAssociation
+        window.canvasElementForDensityAssociation.destroy();
+        // Reconstruire le canvas
+        window.associationDensity(chartForHistogramOfAssociation, res[2]);
       }
     });
 }
@@ -30,7 +63,7 @@ function totalAssociation() {
   regionSelect.onchange = (event) => {
     let regionId = event.target.value;
     let urlToSelectDistrict = `/api/district/${regionId}`;
-    let urlToHaveTotalInRegion = `/api/total/region/${regionId}`;
+    window.urlToHaveTotalInRegion = `/api/total/region/${regionId}`;
     let districtOption = "<option value='none'>District</option>";
 
     if (regionId === "none") {
@@ -38,6 +71,13 @@ function totalAssociation() {
       districtSelect.replaceChildren();
 
       districtSelect.innerHTML = districtOption;
+
+      putTotalAssociation(
+        loadingOfTotalAssociation,
+        `/api/total`,
+        numberOfAssociation,
+        true
+      );
 
       regionName.innerHTML = "Region";
       districtName.innerHTML = "District";
@@ -51,7 +91,8 @@ function totalAssociation() {
       putTotalAssociation(
         loadingOfTotalAssociation,
         urlToHaveTotalInRegion,
-        numberOfAssociation
+        numberOfAssociation,
+        true
       );
 
       // Set the relatives districts to selected region
@@ -78,7 +119,15 @@ function totalAssociation() {
     let urlToHaveTotalInDistrict = `/api/total/district/${districtId}`;
 
     if (districtId === "none") {
-      // Write your code ...
+      // initialiser le nom de district
+      districtName.innerHTML = "District";
+      // Get the total of association in one region
+      putTotalAssociation(
+        loadingOfTotalAssociation,
+        window.urlToHaveTotalInRegion,
+        numberOfAssociation,
+        false
+      );
       return 0;
     } else {
       // Add the district name to the districtName attribute
@@ -88,7 +137,8 @@ function totalAssociation() {
       putTotalAssociation(
         loadingOfTotalAssociation,
         urlToHaveTotalInDistrict,
-        numberOfAssociation
+        numberOfAssociation,
+        false
       );
     }
   };

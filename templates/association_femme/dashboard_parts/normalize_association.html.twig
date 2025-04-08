@@ -3,15 +3,24 @@
         <h3>Association avec</h3>
         <div class="col-sm-12 col-md-6 col-lg-4 py-4 d-flex flex-column align-items-center normalize-item ">
             <h6 class="title">NIF/STAT</h6>
-            <canvas id="chartWithNif" width="150" height="150"></canvas>
+            <div class="chartNormalize">
+                <canvas id="chartWithNif" width="150" height="150"></canvas>
+                <div id="textOfNif">-%</div>
+            </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-4 py-4 d-flex flex-column align-items-center normalize-item ">
             <h6 class="title">Présidente</h6>
-            <canvas id="chartWithPresident" width="150" height="150"></canvas>
+            <div class="chartNormalize">
+                <canvas id="chartWithPresident" width="150" height="150"></canvas>
+                <div id="textOfPresident">-%</div>
+            </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg-4 py-4 d-flex flex-column align-items-center normalize-item ">
             <h6 class="title">N° Recepissé</h6>
-            <canvas id="chartWithReceipt" width="150" height="150"></canvas>
+            <div class="chartNormalize">
+                <canvas id="chartWithReceipt" width="150" height="150"></canvas>
+                <div id="textOfRecepisse">-%</div>
+            </div>
         </div>
     </div>
 </div>
@@ -29,19 +38,19 @@
 <script>
     const chartWithNif = document.getElementById('chartWithNif');
 
-    normalizeAssociation('chartWithNif', chartWithNif, nifStat, 'textOfNif')
+    normalizeAssociation('textOfNif', chartWithNif, nifStat, 1)
 </script>
 
 {# Graphic chart for association who have president #}
 <script>
-    const chartWithPresident = document.getElementById('chartWithPresident');
+    window.chartWithPresident = document.getElementById('chartWithPresident');
 
-    normalizeAssociation('chartWithPresident', chartWithPresident, president, 'textOfPresident')
+    normalizeAssociation('textOfPresident', chartWithPresident, president, 2)
 </script>
 
 {# Graphic chart for the "numéro recepissé" #}
 <script>
-    const chartWithReceipt = document.getElementById('chartWithReceipt');
+    window.chartWithReceipt = document.getElementById('chartWithReceipt');
 
-    normalizeAssociation('chartWithReceipt', chartWithReceipt, numeroRecepisse, 'textOfReceipt')
+    normalizeAssociation('textOfRecepisse', chartWithReceipt, numeroRecepisse, 3)
 </script>

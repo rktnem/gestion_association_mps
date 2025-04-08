@@ -1,4 +1,4 @@
-function associationDensity(chartId, data) {
+window.associationDensity = (chartId, data) => {
   let label = [];
   let total = [];
 
@@ -7,7 +7,7 @@ function associationDensity(chartId, data) {
     total.push(item.membre);
   }
 
-  new Chart(chartId, {
+  window.canvasElementForDensityAssociation = new Chart(chartId, {
     type: "bar",
     data: {
       labels: label,
@@ -35,4 +35,4 @@ function associationDensity(chartId, data) {
   });
 
   chartId.style.height = "525px";
-}
+};

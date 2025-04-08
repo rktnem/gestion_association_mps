@@ -41,7 +41,7 @@
 }
 
 /* For registration */
-.register-section {
+/* .register-section {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -75,4 +75,22 @@
   .register-section .register-image {
     display: none;
   }
+} */
+.register-navbar {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+  padding: 7px;
+}
+.register-navbar .action-button {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.register-navbar .action-button span:first-child {
+  font-size: 24px;
+  line-height: 1;
+}
+.register-section {
+  margin: 20px 0;
 }

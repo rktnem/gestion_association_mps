@@ -2,18 +2,43 @@
 
 {% block title %}Register{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href={{ asset("style/app/security.css") }}>
+{% endblock %}
+
 {% block body %}
-    <h1>Register</h1>
+    <div class="container">
+        <div class="register-navbar">
+            <a class="btn action-button" href={{ path("app_login") }}>
+                <span>&larr;</span>
+                <span>Sign In</span>
+            </a>
+        </div>
+        <div class="register-section shadow py-4 px-5">
+            <h3>Register</h3>
 
-    {{ form_errors(registrationForm) }}
+            <div class="register-flash">
+                {{ form_errors(registrationForm) }}
+            </div>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.matricule) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+            {{ form_start(registrationForm) }}  
+            <div class="register-form row pt-4">
+                <div class="col-md-12 col-lg-6">
+                    {{ form_row(registrationForm.matricule) }}
+                    {{ form_row(registrationForm.name) }}
+                    {{ form_row(registrationForm.firstname) }}
+                    {{ form_row(registrationForm.pseudonyme) }}
+                    {{ form_row(registrationForm.plainPassword, {
+                        label: 'Password'
+                    }) }}
+                </div>
+                <div class="col-md-12 col-lg-6">
+                    {{ form_row(registrationForm.email) }}
+                    {{ form_row(registrationForm.agreeTerms) }}
+                    <button type="submit" class="px-5 py-2 btn btn-sm btn-success">Register</button>
+                </div>
+            </div>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
 {% endblock %}
