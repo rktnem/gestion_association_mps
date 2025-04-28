@@ -97,9 +97,9 @@
   .chartNormalize
   > div {
   position: absolute;
-  top: calc(50% - 13px);
+  top: calc(50% - 10px);
   left: 0;
-  font-size: 1.5em;
+  font-size: 1.25em;
   font-weight: bold;
   text-align: center;
   width: 100%;

@@ -72,6 +72,9 @@ function totalAssociation() {
 
       districtSelect.innerHTML = districtOption;
 
+      // Ajouter le nom de region dans la partie associationDensity
+      regionName2.innerHTML = "event.target.selectedOptions[0].textContent";
+
       putTotalAssociation(
         loadingOfTotalAssociation,
         `/api/total`,
@@ -86,6 +89,8 @@ function totalAssociation() {
       regionName.innerHTML = event.target.selectedOptions[0].textContent;
       // Initialize district name while region name change
       districtName.innerHTML = "District";
+      // Ajouter le nom de region dans la partie associationDensity
+      regionName2.innerHTML = event.target.selectedOptions[0].textContent;
 
       // Get the total of association in one region
       putTotalAssociation(

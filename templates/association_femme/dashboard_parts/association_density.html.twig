@@ -1,6 +1,9 @@
 <div class="dashboard-component association-density shadow p-4">
     <div class="header">
         <h3>Association</h3>
+        <div class="bg-success text-white px-5 py-2 rounded" id="regionName2">
+            Region
+        </div>
     </div>
     <div class="chart-component">
         <div class="chart">
@@ -12,6 +15,7 @@
 <script>
     const chartForHistogramOfAssociation = document.getElementById("chartForHistogramOfAssociation")
     const associations = {{ associationDensity|json_encode|raw }}
+    const regionName2 = document.getElementById("regionName2")
     
     associationDensity(chartForHistogramOfAssociation, associations)
 </script>

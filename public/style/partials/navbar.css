@@ -17,26 +17,33 @@ nav .report-button > svg {
 }
 
 nav .user-count {
+  position: relative;
+}
+nav .user-count .user-profile {
   max-width: 300px;
   background-color: rgb(232, 232, 232);
   transition: 0.2s ease-in-out;
   cursor: pointer;
 }
-nav .user-count:hover {
+nav .user-count .user-profile:hover {
   background-color: rgb(224, 224, 224);
 }
-nav .user-count svg {
+nav .user-count .user-profile svg {
   width: 15px;
 }
-nav .user-count svg path {
+nav .user-count .user-profile svg path {
   fill: rgb(17, 21, 34);
 }
-nav .user-count span:nth-child(2) {
+nav .user-count .user-profile span:nth-child(2) {
   font-size: 14px;
 }
-nav .user-count span:last-child {
+nav .user-count .user-profile span:last-child {
   transform: rotate(90deg);
 }
-nav .user-count span:last-child svg {
+nav .user-count .user-profile span:last-child svg {
   width: 8px;
+}
+nav .user-count .user-action {
+  display: none;
+  background-color: rgb(224, 224, 224);
 }

@@ -22,8 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AssociationFemmeController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function index(AssociationRepository $associationRepository, RegionRepository $regionRepository, 
-        BesoinRepository $besoinRepository, DistrictRepository $districtRepository,
+    public function index(AssociationRepository $associationRepository, RegionRepository $regionRepository, DistrictRepository $districtRepository,
         Request $request, EntityManagerInterface $em): Response {
         $helper = new Helper();
         $mapController = new MapController();
