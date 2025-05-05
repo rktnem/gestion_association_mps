@@ -2,16 +2,20 @@
 
 namespace App\Controller;
 
+use App\Controller\API\EmployeController;
 use App\Helper\Helper;
 use DateTimeImmutable;
 use App\Entity\Association;
 use App\Form\AssociationType;
 use App\Controller\MapController;
+use App\Entity\ServicesDirections;
 use App\Repository\BesoinRepository;
 use App\Repository\RegionRepository;
 use App\Repository\DistrictRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\AssociationRepository;
+use App\Repository\EmployesRepository;
+use App\Repository\ServicesDirectionsRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,8 +26,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AssociationFemmeController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function index(AssociationRepository $associationRepository, RegionRepository $regionRepository, DistrictRepository $districtRepository,
-        Request $request, EntityManagerInterface $em): Response {
+    public function index(AssociationRepository $associationRepository, 
+        RegionRepository $regionRepository, DistrictRepository $districtRepository,
+        Request $request, EntityManagerInterface $em): Response 
+    {
         $helper = new Helper();
         $mapController = new MapController();
         $association = new Association();
