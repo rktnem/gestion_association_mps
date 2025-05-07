@@ -18,7 +18,7 @@ class ServicesDirectionsRepository extends ServiceEntityRepository
 
     public function findDirectionById(int $id) {
         return $this->createQueryBuilder("sd")
-            ->select("s.libelle as service, d.libelle as direction")
+            ->select("s.id as service, d.id as direction")
             ->join("sd.directions", "d")
             ->join("sd.services", "s")
             ->where("sd.id = :id")

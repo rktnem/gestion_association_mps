@@ -28,12 +28,16 @@
                     {{ form_row(registrationForm.name) }}
                     {{ form_row(registrationForm.firstname) }}
                     {{ form_row(registrationForm.pseudonyme) }}
-                    {{ form_row(registrationForm.plainPassword, {
-                        label: 'Password'
-                    }) }}
+                    {{ form_row(registrationForm.email) }}
                 </div>
                 <div class="col-md-12 col-lg-6">
-                    {{ form_row(registrationForm.email) }}
+                    {{ form_row(registrationForm.directions) }}
+                    {{ form_row(registrationForm.services) }}
+                    {{ form_row(registrationForm.fonction) }}
+                    {{ form_row(registrationForm.plainPassword, {
+                        class: "",
+                        label: 'Password'
+                    }) }}
                     {{ form_row(registrationForm.agreeTerms) }}
                     <button type="submit" class="px-5 py-2 btn btn-sm btn-success">Register</button>
                 </div>
@@ -41,4 +45,6 @@
             {{ form_end(registrationForm) }}
         </div>
     </div>
+
+    <script src={{ asset("js/authentication/registration.js") }}></script>
 {% endblock %}

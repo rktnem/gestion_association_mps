@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -44,6 +46,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 150)]
     private ?string $email = null;
+
+    #[ORM\ManyToOne(fetch: "EAGER")]
+    private ?Fonction $fonction = null;
+
+    #[ORM\ManyToOne]
+    private ?Services $services = null;
+
+    #[ORM\ManyToOne]
+    private ?Directions $directions = null;
 
     public function getId(): ?int
     {
@@ -163,6 +174,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): static
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getFonction(): ?Fonction
+    {
+        return $this->fonction;
+    }
+
+    public function setFonction(?Fonction $fonction): static
+    {
+        $this->fonction = $fonction;
+
+        return $this;
+    }
+
+    public function getServices(): ?Services
+    {
+        return $this->services;
+    }
+
+    public function setServices(?Services $services): static
+    {
+        $this->services = $services;
+
+        return $this;
+    }
+
+    public function getDirections(): ?Directions
+    {
+        return $this->directions;
+    }
+
+    public function setDirections(?Directions $directions): static
+    {
+        $this->directions = $directions;
 
         return $this;
     }

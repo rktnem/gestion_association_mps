@@ -18,8 +18,9 @@ class EmployesRepository extends ServiceEntityRepository
 
     public function findEmployeByMatricule(string $matricule) {
         return $this->createQueryBuilder("emp")
-            ->select("emp.id, emp.imatriculation, emp.nom, emp.prenom, emp.email, sd.id as serviceId")
+            ->select("emp.id, emp.imatriculation, emp.nom, emp.prenom, emp.email, f.id as fonctionId, sd.id as serviceId")
             ->join("emp.servicesdirections", "sd")
+            ->join("emp.fonction", "f")
             ->where("emp.imatriculation = :matricule")
             ->setParameter("matricule", $matricule)
             ->getQuery()

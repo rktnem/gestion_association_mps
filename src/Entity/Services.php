@@ -46,7 +46,5 @@ class Services
         $this->libelle = $libelle;
 
         return $this;
-    }
-
- 
+    } 
 }
