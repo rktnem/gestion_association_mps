@@ -11,7 +11,7 @@
         <div class="register-navbar">
             <a class="btn action-button" href={{ path("app_login") }}>
                 <span>&larr;</span>
-                <span>Sign In</span>
+                <span>Se connecter</span>
             </a>
         </div>
         <div class="register-section shadow py-4 px-5">
@@ -30,7 +30,7 @@
                     {{ form_row(registrationForm.pseudonyme) }}
                     {{ form_row(registrationForm.email) }}
                 </div>
-                <div class="col-md-12 col-lg-6">
+                <div class="col-md-12 col-lg-6 d-flex flex-column">
                     {{ form_row(registrationForm.directions) }}
                     {{ form_row(registrationForm.services) }}
                     {{ form_row(registrationForm.fonction) }}
@@ -38,8 +38,7 @@
                         class: "",
                         label: 'Password'
                     }) }}
-                    {{ form_row(registrationForm.agreeTerms) }}
-                    <button type="submit" class="px-5 py-2 btn btn-sm btn-success">Register</button>
+                    <button type="submit" class="mt-4 py-2 btn btn-sm btn-success">S'inscrire</button>
                 </div>
             </div>
             {{ form_end(registrationForm) }}

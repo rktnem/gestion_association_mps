@@ -9,7 +9,9 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
@@ -21,22 +23,59 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('matricule')
-            ->add('name')
-            ->add('firstname')
-            ->add('pseudonyme')
-            ->add('email')
-            ->add('agreeTerms', CheckboxType::class, [
-                                'mapped' => false,
+            ->add('matricule', TextType::class, [
                 'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                    new NotBlank([
+                        'message' => 'Veuillez soumettre votre matricule',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'votre matricule doit au moins avoir {{ limit }} caractère',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 8,
+                    ]),
+                ],
+            ])
+            ->add('name', TextType::class, [
+                "attr" => [
+                    'readonly' => true
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Votre nom est incomplète, soumettez votre matricule',
+                    ]),
+                ],
+            ])
+            ->add('firstname', TextType::class, [
+                "attr" => [
+                    'readonly' => true
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Votre prénom est incomplète, soumettez votre matricule',
+                    ]),
+                ],
+            ])
+            ->add('pseudonyme', TextType::class, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez donner votre nom d\'appelation',
+                    ]),
+                ],
+            ])
+            ->add('email', EmailType::class, [
+                "attr" => [
+                    'readonly' => true
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Votre email est incomplète, soumettez votre matricule',
                     ]),
                 ],
             ])
             ->add('directions', EntityType::class, [
                 "class" => Directions::class,
-                "choice_label" => "libelle"
+                "choice_label" => "libelle",
             ])
             ->add('services', EntityType::class, [
                 "class" => Services::class,
@@ -53,11 +92,11 @@ class RegistrationFormType extends AbstractType
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Veuillez entrer votre mot de passe',
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'votre mot de passe doit au moins avoir {{ limit }} caractère',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
