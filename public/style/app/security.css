@@ -94,3 +94,51 @@
 .register-section {
   margin: 20px 0;
 }
+
+/* Gestion des utilisateurs */
+.user-section {
+  height: 100%;
+}
+.user-section .user-list table {
+  font-size: 14px;
+}
+.user-section .user-list table tbody tr {
+  padding: 4px 0;
+}
+.user-section .user-list table .role {
+  text-transform: capitalize;
+}
+.user-section .user-list table .action {
+  width: 100px;
+  text-align: center;
+}
+.user-section .user-list table .action a {
+  text-decoration: none;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+.user-section .user-list table .action .edit {
+  padding: 4px 4px 4px 8px;
+  margin-right: 12px;
+  background-color: var(--primary);
+}
+.user-section .user-list table .action .edit:hover {
+  background-color: var(--primary-hover);
+}
+.user-section .user-list table .action .delete {
+  background-color: #d9534f;
+}
+.user-section .user-list table .action .delete:hover {
+  background-color: #d3332d;
+}
+.user-section .user-list table .action a svg {
+  width: 16px;
+  height: 20px;
+  color: white;
+}
+
+/* Editer le role d'un utilisateur */
+.edit-user-section .role {
+  background-color: rgb(226, 236, 244);
+}

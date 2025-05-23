@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href={{ asset("style/app/security.css") }}>
+{% endblock %}
+
+{% block title "Gestion des utilisateurs" %}
+
+{% block body %}
+    <div>
+        <div class="user-section d-flex flex-column gap-2 py-2 px-4">
+            <h3>Utilisateur</h3>
+            <div class="user-list table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Matricule</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Direction</th>
+                            <th>Fonction</th>
+                            <th>Role</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td class="text-center">{{ user.matricule }}</td>
+                                <td>{{ user.name }}</td>
+                                <td>{{ user.firstname }}</td>
+                                <td>{{ user.direction }}</td>
+                                <td>{{ user.fonction }}</td>
+                                <td class="role">
+                                    {{ user.roles | join(" - ") }}
+                                </td>
+                                <td class="action">
+                                    <a class="edit" href={{ path("user.edit", { id: user.id }) }}>
+                                        {{ ux_icon("fa:edit") }}
+                                    </a>
+                                    <a class="delete" href={{ path("user.destroy", { id: user.id }) }}  onClick="return confirm('Voulez-vous vraiment supprimer cet utilisateur ?');">
+                                        {{ ux_icon('uiw:user-delete') }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
